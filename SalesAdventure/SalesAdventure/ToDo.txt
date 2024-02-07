@@ -1,0 +1,19 @@
+﻿*Skapa karta med väggar och vägar
+*Logik för att röra spelare på kartan
+*Skapa varelse(skelettet)
+*Skapa Attributer
+*Skapa karaktär(Hero)
+*Skapa fiender
+*Skapa inventory(items+attribut)
+*Skapa en start meny
+  -Välja kön
+  -välja krigare
+  -sätta attribut
+*Skapa Items
+*Skapa Skatter
+*Logik för att placera saker på kartan
+*Logik för att placera fiender och spelare
+*Logik för interaktion(Fight,skatter,föremål m.m)
+*Chatt-ruta för konversation/fights(kunna påverka med karisma)
+
+
