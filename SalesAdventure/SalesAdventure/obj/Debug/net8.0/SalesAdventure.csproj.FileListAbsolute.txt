@@ -1,0 +1,15 @@
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\bin\Debug\net8.0\SalesAdventure.exe
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\bin\Debug\net8.0\SalesAdventure.deps.json
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\bin\Debug\net8.0\SalesAdventure.runtimeconfig.json
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\bin\Debug\net8.0\SalesAdventure.dll
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\bin\Debug\net8.0\SalesAdventure.pdb
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.AssemblyInfoInputs.cache
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.AssemblyInfo.cs
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.csproj.CoreCompileInputs.cache
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.sourcelink.json
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.dll
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\refint\SalesAdventure.dll
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.pdb
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.genruntimeconfig.cache
+C:\Users\theea\source\repos\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\ref\SalesAdventure.dll
