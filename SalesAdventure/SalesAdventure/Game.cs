@@ -7,76 +7,71 @@ class Game
     int playerPosX = 5;
     int playerPosY = 5;
     string player = "P";
-    //string playerSymbol = "P";
-    ConsoleKeyInfo keyInfo = Console.ReadKey();
     bool runGame = true;
-
 
     public Game()
     {
     }
-
     public void Run()
     {
         DrawMap();
         PlacePlayer();
 
-        Console.WriteLine("Welcome Player!!");
+        Console.WriteLine("Welcome Player!!\nPress Enter to play the SalesAdventures\n");
+        Console.ReadLine();
 
-        //while (runGame)
-        //{
+        while (runGame)
+        {
+            Console.Clear();
+            Console.WriteLine("Use Arrows or WASD to Move around or press Q to Quit\n");
+            FillMap();
+            PlacePlayer();
 
-        FillMap();
+            ConsoleKeyInfo keyInfo = Console.ReadKey();
 
-        //    readkey
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.UpArrow:
+                case ConsoleKey.W:
+                    map[playerPosX, playerPosY] = ".";
+                    playerPosX--;
+                    PlacePlayer();
+                    break;
 
-        //    up
-        //    MovePlayer();
+                case ConsoleKey.DownArrow:
+                case ConsoleKey.S:
+                    map[playerPosX, playerPosY] = ".";
+                    playerPosX++;
+                    PlacePlayer();
+                    break;
 
-        //    down
-        //    MovePlayer();
+                case ConsoleKey.LeftArrow:
+                case ConsoleKey.A:
+                    map[playerPosX, playerPosY] = ".";
+                    playerPosY--;
+                    PlacePlayer();
+                    break;
 
-        //    left
-        //    MovePlayer();
+                case ConsoleKey.RightArrow:
+                case ConsoleKey.D:
+                    map[playerPosX, playerPosY] = ".";
+                    playerPosY++;
+                    PlacePlayer();
+                    break;
 
-        //    right
-        //    MovePlayer();
+                case ConsoleKey.Q:
+                    runGame = false;
+                    break;
 
-        //}
-
-
+                default:
+                    break;
+            }
+        }
     }
-
-    //private void MovePlayer(int playerPosX, int playerPosY, int i, int j)
-    //{
-    //    if ((keyInfo.Key == ConsoleKey.UpArrow))//Lägga till logik för träffa väggar åt alla hållen
-    //    {
-    //        playerPosY = j++;
-    //    }
-    //    else if (keyInfo.Key == ConsoleKey.DownArrow)
-    //    {
-    //        playerPosY = j--;
-    //    }
-    //    else if (keyInfo.Key == ConsoleKey.LeftArrow)
-    //    {
-    //        playerPosY = i--;
-    //    }
-    //    else if (keyInfo.Key == ConsoleKey.RightArrow)
-    //    {
-    //        playerPosY = i++;
-    //    }
-    //    else
-    //    {
-    //        runGame = false;
-    //    }
-    //}
-
     public void PlacePlayer()
     {
         map[playerPosX, playerPosY] = player;
     }
-
-
     public void DrawMap()
     {
         for (int i = 0; i < 10; i++)
@@ -84,7 +79,6 @@ class Game
             for (int j = 0; j < 10; j++)
             {
                 map[i, j] = ".";
-
             }
         }
     }
