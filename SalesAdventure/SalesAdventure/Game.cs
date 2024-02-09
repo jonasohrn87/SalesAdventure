@@ -18,6 +18,8 @@ class Game
         PlacePlayer();
 
         Console.WriteLine("Welcome Player!!\nPress Enter to play the SalesAdventures\n");
+
+        Console.WriteLine("hej pull");
         Console.ReadLine();
 
         while (runGame)
