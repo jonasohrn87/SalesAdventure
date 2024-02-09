@@ -6,9 +6,15 @@ class Game
     static int mapSizeX = 12;
     static int mapSizeY = 12;
     static string[,] map = new string[mapSizeY, mapSizeX];
-    int playerPosX = 5;
-    int playerPosY = 5;
+
+    int playerPosX = 1;
+    int playerPosY = 10;
     string player = "P";
+
+    int monsterPosX = 3;
+    int monsterPosY = 3;
+    string monster = "M";
+
     bool runGame = true;
 
     public Game()
@@ -18,7 +24,7 @@ class Game
     {
         DrawMap();
         PlacePlayer();
-
+        SpawnEnemies();
         Console.WriteLine("Welcome Player!!\nPress Enter to play the SalesAdventures\n");
 
         Console.ReadLine();
@@ -29,16 +35,15 @@ class Game
             Console.WriteLine("Use Arrows or WASD to Move around or press Q to Quit\n");
             FillMap();
             PlacePlayer();
+            //SpawnEnemies();
 
             ConsoleKeyInfo keyInfo = Console.ReadKey();
 
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                case ConsoleKey.W:
-                    
-                    MovePlayer("W");
-                    
+                case ConsoleKey.W:                    
+                    MovePlayer("W");                    
                     break;
 
                 case ConsoleKey.DownArrow:
@@ -66,13 +71,14 @@ class Game
         }
     }
 
+    private void SpawnEnemies()
+    {
+        map[monsterPosY, monsterPosX] = monster;
+    }
+
     private void MovePlayer(string direction)
     {
-
-        //if (playerPosY <= 0 || playerPosY >= 11 || playerPosX <= 0 || playerPosX >= 11)
-        //{
-        //    PlacePlayer();
-        //}
+        
         if (direction =="W") { 
         {
             map[playerPosY, playerPosX] = ".";
@@ -132,7 +138,14 @@ class Game
         {
             for (int j = 0; j < mapSizeX; j++)
             {
-                map[i, j] = ".";
+                if (i == 0 || i == mapSizeY - 1 || j == 0 || j == mapSizeX - 1)
+                {
+                    map[i, j] = "#"; // # representerar väggar
+                }
+                else
+                {
+                    map[i, j] = ".";
+                }
             }
         }
     }
