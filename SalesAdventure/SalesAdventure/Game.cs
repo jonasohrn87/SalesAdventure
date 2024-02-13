@@ -1,21 +1,30 @@
 ﻿using System;
+using System.Security.Cryptography;
 using System.Threading.Channels;
+using SalesAdventure.Entities;
 using SalesAdventure.Map;
 
 namespace SalesAdventure
 {
-    internal class Game
+    public class Game
     {
+
+        Player player1 = new Player("P", 1, "Tintin", 100, 5, 8, 6, 0);
+        Cyclop cyclop = new Cyclop("C", 5, "Ruben", 150, 4, 3, 2, 0);
+        Goblin goblin = new Goblin("G", 4, "Johnny", 100, 5, 8, 6, 0);
+        Orc orc = new Orc("O", 2, "Nikos", 100, 5, 8, 6, 0);
+
         static int mapSizeX = 12;
         static int mapSizeY = 12;
         static string[,] map = new string[mapSizeY, mapSizeX];
 
         int playerPosX = 1;
         int playerPosY = 10;
-        string player = "P";
 
         int monsterPosX = 3;
         int monsterPosY = 3;
+        int orcPosY = 4;
+        int orcPosX = 4;
         string monster = "M";
 
         bool runGame = true;
@@ -26,13 +35,14 @@ namespace SalesAdventure
         public void Run()
         {
             Map.DrawMap drawMap = new Map.DrawMap(map, mapSizeX, mapSizeY);
-
             Console.WriteLine("Welcome Player!!\nPress Enter to play the SalesAdventures\n");
+            
             Console.ReadLine();
 
             drawMap.Fill();
-            PlacePlayer();
             SpawnEnemies();
+            PlacePlayer();
+
 
             while (runGame)
             {
@@ -41,9 +51,11 @@ namespace SalesAdventure
 
                 drawMap.Draw();
                 drawMap.Fill();
+
                 PlacePlayer();
-                SpawnEnemies();
+                PlaceEnemies();                
                 MonsterEncounter();
+
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey();
 
@@ -81,11 +93,17 @@ namespace SalesAdventure
 
         private void MonsterEncounter()
         {
-            if (monsterPosY == playerPosY && monsterPosX == playerPosX && monster == "M")
+            // if (monsterPosY == playerPosY && monsterPosX == playerPosX && monster == "M" || orc.creatureIcon == "O")
+            // if (orcPosY == playerPosY && orcPosX == playerPosX)
+            if (map[playerPosY, playerPosX] == map[orcPosY, orcPosX] || map[playerPosY, playerPosX] == map[monsterPosY, monsterPosX])
             {
                 Console.Clear();
-                Console.WriteLine("You've encountered an Orge Giant, what will you do?");
+                Console.WriteLine("You've encountered an Ogre Giant, what will you do?");
                 Console.WriteLine(" A. Attack!!\n F. Flee encounter!");
+
+                // orcPosX = 0;
+                // orcPosY = 0;
+                // orc.creatureIcon = "#";
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey();
 
@@ -136,11 +154,26 @@ namespace SalesAdventure
             }
         }
 
-        private void SpawnEnemies()
+        private void PlaceEnemies()
         {
             map[monsterPosY, monsterPosX] = monster;
+            map[orcPosY, orcPosX] = orc.creatureIcon;
         }
-        private void MovePlayer(int movePosY, int movePosX)
+        
+        private void SpawnEnemies()
+        {
+            Random randomMonsterPosition = new Random();
+            monsterPosY = randomMonsterPosition.Next(1, mapSizeY - 1);
+            monsterPosX = randomMonsterPosition.Next(1, mapSizeX - 1);
+            
+            orcPosY = randomMonsterPosition.Next(1, mapSizeY - 1);
+            orcPosX = randomMonsterPosition.Next(1, mapSizeX - 1);
+            
+            map[orcPosY, orcPosX] = orc.creatureIcon;
+            map[monsterPosY, monsterPosX] = monster;
+            
+        }
+        public void MovePlayer(int movePosY, int movePosX)
         {
             int newPosY = playerPosY + movePosY;
             int newPosX = playerPosX + movePosX;
@@ -156,7 +189,7 @@ namespace SalesAdventure
 
             public void PlacePlayer()
         {
-            map[playerPosY, playerPosX] = player;
+            map[playerPosY, playerPosX] = player1.creatureIcon;
         }
     }
 }
