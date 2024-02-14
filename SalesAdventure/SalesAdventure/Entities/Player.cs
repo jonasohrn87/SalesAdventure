@@ -11,21 +11,23 @@ namespace SalesAdventure.Entities
 {
     public class Player : Creature
     {
-        public Player(string creatureIcon, int lvl,string name, int hp, int luck,int streanght,int charisma,int wackiness) 
+        public Player(string creatureIcon, int lvl, string name, int hp, int luck, int strength, int charisma, int wackiness, int positionY, int positionX)
         {
             this.creatureIcon = creatureIcon;
-            this.lvl = lvl;            
+            this.lvl = lvl;
             this.name = name;
             this.hp = hp;
             this.luck = luck;
+            this.strength = strength;
             this.charisma = charisma;
             this.wackiness = wackiness;
+            this.positionY = positionY;
+            this.positionX = positionX;
+
         }
-        public int playerPosY = 10;
-        public int playerPosX = 1;
-        //public void PlacePlayer()
-        //{
-        //    map[this.playerPosY, this.playerPosX] = this.creatureIcon;
-        //}
+        public void PlacePlayer(DrawMap drawMap)
+        {
+            drawMap.map[this.positionY, this.positionX] = this.creatureIcon;
+        }
     }
 }
