@@ -18,5 +18,18 @@ namespace SalesAdventure.Entities
             this.charisma = charisma;
             this.wackiness = wackiness;
         }
+        public int cyclopPosY;
+        public int cyclopPosX;
+        public void cyclopDefeated ()
+        {
+            this.creatureIcon = ".";
+            cyclopPosY = 0;
+            cyclopPosX = 0;
+            this.creatureIcon = "#";
+            this.hp = 0;
+
+            Console.Clear();
+            Console.WriteLine("You WON! Press any key to Continue.");
+        }
     }
 }

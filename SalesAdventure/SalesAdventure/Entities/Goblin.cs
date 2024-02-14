@@ -18,5 +18,18 @@ namespace SalesAdventure.Entities
             this.charisma = charisma;
             this.wackiness = wackiness;
         }
+        public int goblinPosY;
+        public int goblinPosX;
+        public void goblinDeafeated()
+        {
+            this.creatureIcon = ".";
+            goblinPosY = 0;
+            goblinPosX = 0;
+            this.creatureIcon = "#";
+            this.hp = 0;
+
+            Console.Clear();
+            Console.WriteLine("You WON! Press any key to Continue.");
+        }
     }
 }
