@@ -3,19 +3,21 @@ using System.Security.Cryptography;
 using System.Threading.Channels;
 using SalesAdventure.Entities;
 using SalesAdventure.Map;
+using SalesAdventure;
 
 namespace SalesAdventure
 {
     public class Game
     {
 
-        Player player1 = new Player("P", 1, "Tintin", 100, 5, 8, 6, 0);
-        Cyclop cyclop = new Cyclop("C", 5, "Ruben", 150, 4, 3, 2, 0);
-        Goblin goblin = new Goblin("G", 4, "Johnny", 100, 5, 8, 6, 0);
-        Orc orc = new Orc("O", 2, "Nikos", 100, 5, 8, 6, 0);
+        Player player1 = new Player("P", 1, "Tintin", 100, 5, 8, 6, 1, 10, 1);
+        Cyclop cyclop = new Cyclop("C", 5, "Ruben", 150, 4, 3, 2, 0, 0, 0);
+        Orc orc = new Orc("O", 2, "Nikos", 100, 5, 8, 6, 0, 0, 0);
+        Goblin goblin = new Goblin("G", 4, "Johnny", 85, 5, 8, 6, 0, 0, 0);
         static int mapSizeX = 12;
         static int mapSizeY = 12;
         static string[,] map = new string[mapSizeY, mapSizeX];
+        DrawMap drawMap = new DrawMap(map, mapSizeX, mapSizeY);
 
         bool runGame = true;
 
@@ -24,13 +26,12 @@ namespace SalesAdventure
         }
         public void Run()
         {
-            Map.DrawMap drawMap = new Map.DrawMap(map, mapSizeX, mapSizeY);
             Console.WriteLine("Welcome Player!!\nPress Enter to play the SalesAdventures\n");
             Console.ReadLine();
 
             drawMap.Fill();
             SpawnEnemies();
-            PlacePlayer();
+            player1.PlacePlayer(drawMap);
 
             while (runGame)
             {
@@ -40,7 +41,7 @@ namespace SalesAdventure
                 drawMap.Draw();
                 drawMap.Fill();
 
-                PlacePlayer();
+                player1.PlacePlayer(drawMap);
                 PlaceEnemies();
                 MonsterEncounter();
 
@@ -79,7 +80,7 @@ namespace SalesAdventure
         }
         private void MonsterEncounter()
         {
-            if (map[player1.playerPosY, player1.playerPosX] == map[cyclop.cyclopPosY, cyclop.cyclopPosX] || map[player1.playerPosY, player1.playerPosX] == map[goblin.goblinPosY, goblin.goblinPosX] || map[player1.playerPosY, player1.playerPosX] == map[orc.orcPosY, orc.orcPosX])
+            if (map[player1.positionY, player1.positionX] == map[cyclop.positionY, cyclop.positionX] || map[player1.positionY, player1.positionX] == map[goblin.positionY, goblin.positionX] || map[player1.positionY, player1.positionX] == map[orc.positionY, orc.positionX])
             {
                 bool monsterEncounter = true;
 
@@ -99,43 +100,43 @@ namespace SalesAdventure
                         while (monsterFight)
                         {
                             Console.Clear();
-                            Console.WriteLine($"PlayerHealth: {player1.hp} MonsterHealth: {MonesterHp()}");
+                            Console.WriteLine($"{player1.name}'s Health: {player1.hp} MonsterHealth: {MonesterHp()}");
                             Console.WriteLine(" 1. Attack\n 2. Block\n 3. Flee");
                             keyInfo = Console.ReadKey();
                             switch (keyInfo.Key)
                             {
                                 case ConsoleKey.D1:
                                     Console.WriteLine("Hitting monster");
-                                    if (map[player1.playerPosY, player1.playerPosX] == map[cyclop.cyclopPosY, cyclop.cyclopPosX])
+                                    if (map[player1.positionY, player1.positionX] == map[cyclop.positionY, cyclop.positionX])
                                     {
-                                        //DiceSet.Dices();
-                                        cyclop.cyclopDefeated();
+                                        //cyclop.CyclopFight(player1);
+                                        cyclop.CyclopDeafeated();
 
                                         if (cyclop.hp == 0)
                                         {
-                                            PlacePlayer();
+                                            player1.PlacePlayer(drawMap);
                                             monsterFight = false;
                                             monsterEncounter = false;
                                         }
                                     }
-                                    else if (map[player1.playerPosY, player1.playerPosX] == map[goblin.goblinPosY, goblin.goblinPosX])
-                                    {
-                                        goblin.goblinDeafeated();
-                                        
-                                        if (goblin.hp == 0)
-                                        {
-                                            PlacePlayer();
-                                            monsterFight = false;
-                                            monsterEncounter = false;
-                                        }
-                                    }
-                                    else if (map[player1.playerPosY, player1.playerPosX] == map[orc.orcPosY, orc.orcPosX])
+                                    else if (map[player1.positionY, player1.positionX] == map[orc.positionY, orc.positionX])
                                     {
                                         orc.OrcDeafeated();
 
                                         if (orc.hp == 0)
                                         {
-                                            PlacePlayer();
+                                            player1.PlacePlayer(drawMap);
+                                            monsterFight = false;
+                                            monsterEncounter = false;
+                                        }
+                                    }
+                                    else if (map[player1.positionY, player1.positionX] == map[goblin.positionY, goblin.positionX])
+                                    {
+                                        goblin.GoblinDeafeated();
+
+                                        if (goblin.hp == 0)
+                                        {
+                                            player1.PlacePlayer(drawMap);
                                             monsterFight = false;
                                             monsterEncounter = false;
                                         }
@@ -148,9 +149,9 @@ namespace SalesAdventure
 
                                 case ConsoleKey.D3:
                                     monsterFight = false;
-                                    player1.playerPosX--;
+                                    player1.positionX--;
                                     monsterEncounter = false;
-                                    PlacePlayer();
+                                    player1.PlacePlayer(drawMap);
                                     break;
 
                                 default:
@@ -161,8 +162,8 @@ namespace SalesAdventure
                     else if (keyInfo.Key == ConsoleKey.F)
                     {
                         monsterEncounter = false;
-                        player1.playerPosX--;
-                        PlacePlayer();
+                        player1.positionX--;
+                        player1.PlacePlayer(drawMap);
                     }
                     else
                     {
@@ -172,76 +173,58 @@ namespace SalesAdventure
                 }
             }
         }
-        public int MonesterHp ()
+        public int MonesterHp()
         {
-            if (map[player1.playerPosY, player1.playerPosX] == map[goblin.goblinPosY, goblin.goblinPosX])
+            if (map[player1.positionY, player1.positionX] == map[goblin.positionY, goblin.positionX])
             {
-                //return Console.WriteLine(goblin.hp);
                 return goblin.hp;
             }
-            else if (map[player1.playerPosY, player1.playerPosX] == map[orc.orcPosY, orc.orcPosX])
+            else if (map[player1.positionY, player1.positionX] == map[orc.positionY, orc.positionX])
             {
-                //Console.WriteLine(orc.hp);
                 return orc.hp;
             }
-            else if (map[player1.playerPosY, player1.playerPosX] == map[cyclop.cyclopPosY, cyclop.cyclopPosX])
+            else if (map[player1.positionY, player1.positionX] == map[cyclop.positionY, cyclop.positionX])
             {
                 return cyclop.hp;
             }
             return 0;
         }
-        //public GoblinAndPlayerPos()
-        //{
-        //    if (map[player1.playerPosY, player1.playerPosX] == map[goblin.goblinPosY, goblin.goblinPosX])
-        //    {
-
-        //    }
-        //        return goblin.hp;
-        //}
-        //public void OrcAndPlayerPos()
-        //{
-        //    map[player1.playerPosY, player1.playerPosX] == map[orc.orcPosY, orc.orcPosX]
-        //}
-        //public void CyclopAndPlayerPos()
-        //{
-        //    map[player1.playerPosY, player1.playerPosX] == map[cyclop.cyclopPosY, cyclop.cyclopPosX]
-        //}
         public void PlaceEnemies()
         {
-            map[cyclop.cyclopPosY, cyclop.cyclopPosX] = cyclop.creatureIcon;
-            map[goblin.goblinPosY, goblin.goblinPosX] = goblin.creatureIcon;
-            map[orc.orcPosY, orc.orcPosX] = orc.creatureIcon;
+            map[cyclop.positionY, cyclop.positionX] = cyclop.creatureIcon;
+            map[orc.positionY, orc.positionX] = orc.creatureIcon;
+            map[goblin.positionY, goblin.positionX] = goblin.creatureIcon;
         }
         private void SpawnEnemies()
         {
             Random randomMonsterPosition = new Random();
 
-            cyclop.cyclopPosY = randomMonsterPosition.Next(1, mapSizeY - 1);
-            cyclop.cyclopPosX = randomMonsterPosition.Next(1, mapSizeX - 1);
+            cyclop.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
+            cyclop.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
 
-            goblin.goblinPosY = randomMonsterPosition.Next(1, mapSizeY - 1);
-            goblin.goblinPosX = randomMonsterPosition.Next(1, mapSizeX - 1);
+            orc.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
+            orc.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
 
-            orc.orcPosY = randomMonsterPosition.Next(1, mapSizeY - 1);
-            orc.orcPosX = randomMonsterPosition.Next(1, mapSizeX - 1);
+            goblin.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
+            goblin.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
 
-            map[cyclop.cyclopPosY, cyclop.cyclopPosX] = cyclop.creatureIcon;
-            map[goblin.goblinPosY, goblin.goblinPosX] = goblin.creatureIcon;
-            map[orc.orcPosY, orc.orcPosX] = orc.creatureIcon;
+
+            map[cyclop.positionY, cyclop.positionX] = cyclop.creatureIcon;
+            map[orc.positionY, orc.positionX] = orc.creatureIcon;
+            map[goblin.positionY, goblin.positionX] = goblin.creatureIcon;
         }
         public void MovePlayer(int movePosY, int movePosX)
         {
-            int newPosY = player1.playerPosY + movePosY;
-            int newPosX = player1.playerPosX + movePosX;
+            int newPosY = player1.positionY + movePosY;
+            int newPosX = player1.positionX + movePosX;
 
             if (newPosY > 0 && newPosY < mapSizeY - 1 && newPosX > 0 && newPosX < mapSizeX - 1)
             {
-                map[player1.playerPosY, player1.playerPosX] = ".";
-                player1.playerPosY = newPosY;
-                player1.playerPosX = newPosX;
-                PlacePlayer();
+                map[player1.positionY, player1.positionX] = ".";
+                player1.positionY = newPosY;
+                player1.positionX = newPosX;
+                player1.PlacePlayer(drawMap);
             }
-        }        
-        public void PlacePlayer() => map[player1.playerPosY, player1.playerPosX] = player1.creatureIcon;
+        }
     }
 }

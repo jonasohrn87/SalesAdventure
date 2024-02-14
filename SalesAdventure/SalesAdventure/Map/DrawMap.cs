@@ -9,11 +9,11 @@ using SalesAdventure.Entities;
 
 namespace SalesAdventure.Map
 {
-    internal class DrawMap
+    public class DrawMap
     {
-        private string[,] map;
-        private int mapSizeX;
-        private int mapSizeY;
+        public string[,] map;
+        public int mapSizeX;
+        public int mapSizeY;
 
         public DrawMap(string[,] map, int mapSizeX, int mapSizeY)
         {

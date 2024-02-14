@@ -29,7 +29,7 @@ namespace SalesAdventure
         //    this.d20 = d20;
         //}
         public DiceSet() 
-        {            
+        {
         }
         public void Dices ()
         {
