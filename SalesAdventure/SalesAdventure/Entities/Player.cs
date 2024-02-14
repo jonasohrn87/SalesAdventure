@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SalesAdventure;
+using SalesAdventure.Map;
 
 namespace SalesAdventure.Entities
 {
@@ -20,7 +21,11 @@ namespace SalesAdventure.Entities
             this.charisma = charisma;
             this.wackiness = wackiness;
         }
-
-
+        public int playerPosY = 10;
+        public int playerPosX = 1;
+        //public void PlacePlayer()
+        //{
+        //    map[this.playerPosY, this.playerPosX] = this.creatureIcon;
+        //}
     }
 }
