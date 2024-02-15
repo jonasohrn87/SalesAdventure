@@ -29,5 +29,19 @@ namespace SalesAdventure.Entities
         {
             drawMap.map[this.positionY, this.positionX] = this.creatureIcon;
         }
+
+        public void MovePlayer(DrawMap drawMap,int movePosY, int movePosX,int mapSizeY,int mapSizeX)
+        {
+            int newPosY = this.positionY + movePosY;
+            int newPosX = this.positionX + movePosX;
+
+            if (newPosY > 0 && newPosY < mapSizeY - 1 && newPosX > 0 && newPosX < mapSizeX - 1)
+            {
+                drawMap.map[this.positionY, this.positionX] = ".";
+                this.positionY = newPosY;
+                this.positionX = newPosX;
+                PlacePlayer(drawMap);
+            }
+        }
     }
 }

@@ -14,15 +14,15 @@ namespace SalesAdventure
         Cyclop cyclop = new Cyclop("C", 5, "Ruben", 150, 4, 3, 2, 0, 0, 0);
         Orc orc = new Orc("O", 2, "Nikos", 100, 5, 8, 6, 0, 0, 0);
         Goblin goblin = new Goblin("G", 4, "Johnny", 85, 5, 8, 6, 0, 0, 0);
-        static int mapSizeX = 12;
-        static int mapSizeY = 12;
-        static string[,] map = new string[mapSizeY, mapSizeX];
-        DrawMap drawMap = new DrawMap(map, mapSizeX, mapSizeY);
-
+        public static int mapSizeX = 12;
+        public static int mapSizeY = 12;
+        public  string[,] map = new string[mapSizeY, mapSizeX];
+        private DrawMap drawMap;
         bool runGame = true;
 
         public Game()
         {
+            drawMap = new DrawMap(map, mapSizeX, mapSizeY);
         }
         public void Run()
         {
@@ -51,22 +51,22 @@ namespace SalesAdventure
                 {
                     case ConsoleKey.UpArrow:
                     case ConsoleKey.W:
-                        MovePlayer(-1, 0);
+                        player1.MovePlayer(drawMap, -1, 0, mapSizeY, mapSizeX);
                         break;
 
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.S:
-                        MovePlayer(1, 0);
+                        player1.MovePlayer(drawMap, 1, 0, mapSizeY, mapSizeX);
                         break;
 
                     case ConsoleKey.LeftArrow:
                     case ConsoleKey.A:
-                        MovePlayer(0, -1);
+                        player1.MovePlayer(drawMap, 0, -1, mapSizeY, mapSizeX);
                         break;
 
                     case ConsoleKey.RightArrow:
                     case ConsoleKey.D:
-                        MovePlayer(0, 1);
+                        player1.MovePlayer(drawMap, 0, 1, mapSizeY, mapSizeX);
                         break;
 
                     case ConsoleKey.Q:
@@ -148,7 +148,7 @@ namespace SalesAdventure
                                     break;
 
                                 case ConsoleKey.D3:
-                                    monsterFight = false;
+                                    monsterFight = false;//lägg till förgående position istället, hamnar i väggen om de är på vänster sida
                                     player1.positionX--;
                                     monsterEncounter = false;
                                     player1.PlacePlayer(drawMap);
@@ -213,18 +213,6 @@ namespace SalesAdventure
             map[orc.positionY, orc.positionX] = orc.creatureIcon;
             map[goblin.positionY, goblin.positionX] = goblin.creatureIcon;
         }
-        public void MovePlayer(int movePosY, int movePosX)
-        {
-            int newPosY = player1.positionY + movePosY;
-            int newPosX = player1.positionX + movePosX;
-
-            if (newPosY > 0 && newPosY < mapSizeY - 1 && newPosX > 0 && newPosX < mapSizeX - 1)
-            {
-                map[player1.positionY, player1.positionX] = ".";
-                player1.positionY = newPosY;
-                player1.positionX = newPosX;
-                player1.PlacePlayer(drawMap);
-            }
-        }
+        
     }
 }
