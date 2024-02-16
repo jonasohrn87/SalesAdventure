@@ -37,7 +37,6 @@ namespace SalesAdventure.Entities
 
         public void CyclopFight(Player player1)
         {
-
             while (player1.hp != 0 || this.hp != 0)
             {
                 if (player1.hp > this.luck)
@@ -49,7 +48,6 @@ namespace SalesAdventure.Entities
                 {
                     Console.WriteLine($"{this.name} will do the first attack.");
                 }
-
             }
         }
         public bool CyclopPlayerFight(DrawMap drawMap, Cyclop cyclop, Player player1)
