@@ -9,7 +9,7 @@ namespace SalesAdventure.Entities
 {
     public class Goblin : Creature
     {
-        public Goblin(string creatureIcon, int lvl, string name, int hp, int luck, int strength, int charisma, int wackiness, int positionY, int positionX)
+        public Goblin(string creatureIcon, int lvl, string name, double hp, int luck, int strength, int charisma, int wackiness, int positionY, int positionX)
         {
             this.creatureIcon = creatureIcon;
             this.lvl = lvl;
@@ -22,24 +22,85 @@ namespace SalesAdventure.Entities
             this.positionY = positionY;
             this.positionX = positionX;
         }
-        public void GoblinDeafeated()
-        {
-            this.creatureIcon = ".";
-            this.positionY = 0;
-            this.positionX = 0;
-            this.creatureIcon = "#";
-            this.hp = 0;
 
-            Console.Clear();
-            Console.WriteLine("You WON! Press any key to Continue.");
-        }
-        public bool GoblinPlayerFight(DrawMap drawMap, Goblin goblin, Player player1)
+        //public override void CreaturePosition()
+        //{
+        //    int[] creaturePosYx = { this.positionY, this.positionX };
+        //    //map[this.positionY, this.positionX] = this.creatureIcon;
+        //}
+
+        public override void Attack(Creature target)
         {
-            if (drawMap.map[player1.positionY, player1.positionX] == drawMap.map[this.positionY, this.positionX])
+            Random randrom = new Random();
+            int goblinAttack = randrom.Next(1, 10) + this.strength;
+            bool isCriticalHit = randrom.Next(100) < this.luck;
+            if (isCriticalHit)
             {
-                return true;
+                goblinAttack *= 2;
+                Console.WriteLine($"{this.name} lands a critical hit on {target.name}!");
             }
-            return false;
+            target.hp -= goblinAttack;
+
+            Console.WriteLine($"{this.name} attacks {target.name} for {goblinAttack} damage. {target.name} have now {target.hp} HP left.");
+        }
+
+        public override void ThrowRock(Creature target)
+        {
+            Random random = new Random();
+            double goblinRock = (random.Next(1, 15) + this.strength) * this.wackiness;
+            bool isCriticalHit = random.Next(80) < this.luck;
+            if (isCriticalHit)
+            {
+                goblinRock *= 1.2;
+                Console.WriteLine($"{this.name} lands a critical hit with a rock on {target.name}!");
+            }
+            target.hp -= goblinRock;
+
+            Console.WriteLine($"{this.name} throws a rock on {target.name} for {goblinRock} damage. {target.name} stumbles and have now {target.hp} HP left.");
+        }
+
+        public override void Attacks(Creature target)
+        {
+            Random random = new Random();
+            int attacking = random.Next(1, 3);
+            if (attacking >= 2)
+            {
+                Attack(target);
+                Console.ReadLine();
+            }
+            else
+            {
+                ThrowRock(target);
+                Console.ReadLine();
+            }
+        }
+
+        public void GoblinEncounter(DrawMap drawMap, string[,] map, Player player1, Goblin goblin1)
+        {
+            if (map[player1.positionY, player1.positionX] == map[this.positionY, this.positionX])
+            {
+                Mechanics.monsterEncounter = true;
+                while (Mechanics.monsterEncounter)
+                {
+                    if (player1.luck > this.luck)
+                    {
+                        Console.WriteLine($"{player1.name} will do the first attack.");
+                        Console.ReadLine();
+
+                        player1.PlayerAttackMenu(drawMap, goblin1, player1);
+                        CreatureDeafeated(drawMap, player1, goblin1);
+                    }
+                    else if (player1.luck < this.luck)
+                    {
+                        Console.WriteLine($"{this.name} will do the first attack.");
+                        Console.ReadLine();
+                        //Attack(goblin1);
+                        Attacks(player1);
+                        player1.PlayerAttackMenu(drawMap, goblin1, player1);
+                        CreatureDeafeated(drawMap, player1, goblin1);
+                    }
+                }
+            }
         }
     }
 }

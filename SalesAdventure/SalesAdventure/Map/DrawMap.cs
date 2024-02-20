@@ -22,6 +22,11 @@ namespace SalesAdventure.Map
             this.mapSizeY = mapSizeY;
         }
 
+        //public Creature GetCreatureAtPosition(int positionY, int positionX)
+        //{
+        //    return Creatures.FirstOrDefault(creatures => creatures.positionY == positionY && creatures.positionX == positionX);
+        //}
+
         public void Draw()
         {
             for (int i = 0; i < mapSizeY; i++)
@@ -51,29 +56,31 @@ namespace SalesAdventure.Map
                 }
             }
         }
-        public void PlaceEnemies(Player player1, Cyclop cyclop, Goblin goblin, Orc orc)
+
+        public void PlaceEnemies(Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1)
         {
-            map[cyclop.positionY, cyclop.positionX] = cyclop.creatureIcon;
-            map[orc.positionY, orc.positionX] = orc.creatureIcon;
-            map[goblin.positionY, goblin.positionX] = goblin.creatureIcon;
+            map[cyclop1.positionY, cyclop1.positionX] = cyclop1.creatureIcon;
+            map[orc1.positionY, orc1.positionX] = orc1.creatureIcon;
+            map[goblin1.positionY, goblin1.positionX] = goblin1.creatureIcon;
         }
-        public void SpawnEnemies(Cyclop cyclop, Goblin goblin, Orc orc)
+
+        public void SpawnEnemies(Cyclop cyclop1, Goblin goblin1, Orc orc1)
         {
             Random randomMonsterPosition = new Random();
 
-            cyclop.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
-            cyclop.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
+            cyclop1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
+            cyclop1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
 
-            orc.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
-            orc.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
+            orc1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
+            orc1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
 
-            goblin.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
-            goblin.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
+            goblin1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
+            goblin1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
 
 
-            map[cyclop.positionY, cyclop.positionX] = cyclop.creatureIcon;
-            map[orc.positionY, orc.positionX] = orc.creatureIcon;
-            map[goblin.positionY, goblin.positionX] = goblin.creatureIcon;
+            map[cyclop1.positionY, cyclop1.positionX] = cyclop1.creatureIcon;
+            map[orc1.positionY, orc1.positionX] = orc1.creatureIcon;
+            map[goblin1.positionY, goblin1.positionX] = goblin1.creatureIcon;
         }
     }
 }
