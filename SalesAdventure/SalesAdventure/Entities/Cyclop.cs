@@ -10,7 +10,7 @@ namespace SalesAdventure.Entities
 {
     public class Cyclop : Creature
     {
-        public Cyclop(string creatureIcon, int lvl, string name, int hp, int luck, int strength, int charisma, int wackiness, int positionY, int positionX)
+        public Cyclop(string creatureIcon, int lvl, string name, double hp, int luck, int strength, int charisma, int wackiness, int positionY, int positionX)
         {
             this.creatureIcon = creatureIcon;
             this.lvl = lvl;
@@ -23,40 +23,85 @@ namespace SalesAdventure.Entities
             this.positionY = positionY;
             this.positionX = positionX;
         }
-         public void CyclopDeafeated()
-        {
-            this.creatureIcon = ".";
-            this.positionY = 0;
-            this.positionX = 0;
-            this.creatureIcon = "#";
-            this.hp = 0;
 
-            Console.Clear();
-            Console.WriteLine("You WON! Press any key to Continue.");
+        //public override void CreaturePosition()
+        //{
+        //    int[] creaturePosYx = { this.positionY, this.positionX };
+        //    //map[this.positionY, this.positionX] = this.creatureIcon;
+        //}
+
+        public override void Attack(Creature target)
+        {
+            Random random = new Random();
+            int cyclopAttack = random.Next(1, 10) + this.strength;
+            bool isCriticalHit = random.Next(100) < this.luck;
+            if (isCriticalHit)
+            {
+                cyclopAttack *= 2;
+                Console.WriteLine($"{this.name} lands a critical hit on {target.name}!");
+            }
+            target.hp -= cyclopAttack;
+
+            Console.WriteLine($"{this.name} attacks {target.name} for {cyclopAttack} damage. {target.name} have now {target.hp} HP left.");
         }
 
-        public void CyclopFight(Player player1)
+        public override void ThrowRock(Creature target)
         {
-            while (player1.hp != 0 || this.hp != 0)
+            Random random = new Random();
+            double cyclopRock = (random.Next(1, 15) + this.strength) * this.wackiness;
+            bool isCriticalHit = random.Next(80) < this.luck;
+            if (isCriticalHit)
             {
-                if (player1.hp > this.luck)
-                {
-                    Console.WriteLine($"{player1.name} will do the first attack.");
-                }
+                cyclopRock *= 3;
+                Console.WriteLine($"{this.name} lands a critical hit with a rock on {target.name}!");
+            }
+            target.hp -= cyclopRock;
 
-                else
-                {
-                    Console.WriteLine($"{this.name} will do the first attack.");
-                }
+            Console.WriteLine($"{this.name} throws a rock on {target.name} for {cyclopRock} damage. {target.name} stumbles and have now {target.hp} HP left.");
+        }
+
+        public override void Attacks(Creature target)
+        {
+            Random random = new Random();
+            int attacking = random.Next(1, 3);
+            if (attacking >= 2)
+            {
+                Attack(target);
+                Console.ReadLine();
+            }
+            else
+            {
+                ThrowRock(target);
+                Console.ReadLine();
             }
         }
-        public bool CyclopPlayerFight(DrawMap drawMap, Cyclop cyclop, Player player1)
+
+        public void CyclopEncounter(DrawMap drawMap, string[,] map, Player player1, Cyclop cyclop1)
         {
-            if (drawMap.map[player1.positionY, player1.positionX] == drawMap.map[this.positionY, this.positionX])
+            if (map[player1.positionY, player1.positionX] == map[this.positionY, this.positionX])
             {
-                return true;
+                Mechanics.monsterEncounter = true;
+                while (Mechanics.monsterEncounter)
+                {
+                    if (player1.luck > this.luck)
+                    {
+                        Console.WriteLine($"{player1.name} will do the first attack.");
+                        Console.ReadLine();
+
+                        player1.PlayerAttackMenu(drawMap, cyclop1, player1);
+                        CreatureDeafeated(drawMap, player1, cyclop1);
+                    }
+                    else if (player1.luck < this.luck)
+                    {
+                        Console.WriteLine($"{this.name} will do the first attack.");
+                        Console.ReadLine();
+                        //Attack(cyclop1);
+                        Attacks(player1);
+                        player1.PlayerAttackMenu(drawMap, cyclop1, player1);
+                        CreatureDeafeated(drawMap, player1, cyclop1);
+                    }
+                }
             }
-            return false;
         }
     }
 }
