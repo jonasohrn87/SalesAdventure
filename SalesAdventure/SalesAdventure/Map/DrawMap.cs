@@ -41,11 +41,11 @@ namespace SalesAdventure.Map
 
         public void Fill()
         {
-            for (int i = 0; i < mapSizeY; i++)
+            for (int i = 0; i < 24; i++)
             {
-                for (int j = 0; j < mapSizeX; j++)
+                for (int j = 0; j < 32; j++)
                 {
-                    if (i == 0 || i == mapSizeY - 1 || j == 0 || j == mapSizeX - 1)
+                    if (i == 0 || i == 24 - 1 || j == 0 || j == 32 - 1)
                     {
                         map[i, j] = "#"; // # representerar väggar
                     }
@@ -56,6 +56,8 @@ namespace SalesAdventure.Map
                 }
             }
         }
+
+       
 
         public void PlaceEnemies(Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1)
         {
@@ -68,14 +70,14 @@ namespace SalesAdventure.Map
         {
             Random randomMonsterPosition = new Random();
 
-            cyclop1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
-            cyclop1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
+            cyclop1.positionY = randomMonsterPosition.Next(1, 24 - 1); //Y
+            cyclop1.positionX = randomMonsterPosition.Next(1, 32 - 1); //X
 
-            orc1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
-            orc1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
+            orc1.positionY = randomMonsterPosition.Next(1, 24 - 1);
+            orc1.positionX = randomMonsterPosition.Next(1, 32 - 1);
 
-            goblin1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
-            goblin1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
+            goblin1.positionY = randomMonsterPosition.Next(1, 24 - 1);
+            goblin1.positionX = randomMonsterPosition.Next(1, 32 - 1);
 
 
             map[cyclop1.positionY, cyclop1.positionX] = cyclop1.creatureIcon;

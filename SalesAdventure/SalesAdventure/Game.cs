@@ -9,8 +9,8 @@ namespace SalesAdventure
 {
     public class Game
     {
-        public static int mapSizeX = 12;
-        public static int mapSizeY = 12;
+        public static int mapSizeX = 60;
+        public static int mapSizeY = 24;
         public string[,] map = new string[mapSizeY, mapSizeX];
 
         public Game()
@@ -31,12 +31,14 @@ namespace SalesAdventure
             Orc orc1 = new Orc("O", 2, $"{TextColorGreen}Nikos{TextColorReset}", 100, 5, 8, 6, 1, 0, 0);
             Goblin goblin1 = new Goblin("G", 4, $"{BrigtGreen}Johnny{TextColorReset}", 85, 5, 8, 6, 1, 0, 0);
             DrawMap drawMap = new DrawMap(map, mapSizeX, mapSizeY);
+            Inventory inventory = new Inventory(map, mapSizeX, mapSizeY);
             //Creature[] creature = { cyclop1, orc1, goblin1 };
 
             Console.WriteLine("Welcome Player!!\nPress Enter to play the SalesAdventures\n");
             Console.ReadLine();
 
             drawMap.Draw();
+            Inventory.DrawInventory(drawMap, map, mapSizeY, mapSizeX);
             drawMap.Fill();
             drawMap.SpawnEnemies(cyclop1, goblin1, orc1);
             player1.PlacePlayer(drawMap);

@@ -124,7 +124,7 @@ namespace SalesAdventure.Entities
             int newPosY = this.positionY + movePosY;
             int newPosX = this.positionX + movePosX;
 
-            if (newPosY > 0 && newPosY < mapSizeY - 1 && newPosX > 0 && newPosX < mapSizeX - 1)
+            if (newPosY > 0 && newPosY < mapSizeY - 1 && newPosX > 0 && newPosX < 32 - 1)
             {
                 drawMap.map[this.positionY, this.positionX] = ".";
                 this.positionY = newPosY;
