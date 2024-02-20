@@ -32,6 +32,11 @@ namespace SalesAdventure.Entities
         //    //map[this.positionY, this.positionX] = this.creatureIcon;
         //}
 
+        public override void Blocking(Creature target)
+        {
+
+        }
+
         public override void Attack(Creature target)
         {
             Random random = new Random();
@@ -77,19 +82,19 @@ namespace SalesAdventure.Entities
                 case ConsoleKey.D1:
                     Console.WriteLine("Attacking monster");
                     this.Attack(target);
-                    if (target.hp > 0)
-                    {
-                        target.Attacks(this);
-                    }
+                    //if (target.hp > 0)
+                    //{
+                    //    target.Attacks(this);
+                    //}
                     break;
 
                 case ConsoleKey.D2:
                     Console.WriteLine("Throwing rock on monster");
                     this.ThrowRock(target);
-                    if (target.hp > 0)
-                    {
-                        target.Attacks(this);
-                    }
+                    //if (target.hp > 0)
+                    //{
+                    //    target.Attacks(this);
+                    //}
                     break;
 
                 case ConsoleKey.D3:

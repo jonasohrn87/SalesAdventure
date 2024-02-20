@@ -18,10 +18,18 @@ namespace SalesAdventure
         }
         public void Run()
         {
-            Player player1 = new Player("P", 1, "Tintin", 200, 2, 8, 6, 1, 10, 1);
-            Cyclop cyclop1 = new Cyclop("C", 5, "Ruben", 150, 4, 3, 2, 2, 0, 0);
-            Orc orc1 = new Orc("O", 2, "Nikos", 100, 5, 8, 6, 1, 0, 0);
-            Goblin goblin1 = new Goblin("G", 4, "Johnny", 85, 5, 8, 6, 1, 0, 0);
+            string TextColorRed = "\u001b[31m";
+            string TextColorGreen = "\u001b[32m";
+            string BrigtGreen = "\u001b[92m";
+
+            string TextColorReset = "\u001b[0m";
+
+            //$"{TextColorRed}C{TextColorReset}"
+
+            Player player1 = new Player("P", 1, "Tintin", 200, 10, 8, 6, 1, 10, 1);
+            Cyclop cyclop1 = new Cyclop("C", 5, $"{TextColorRed}Ruben{TextColorReset}", 150, 4, 3, 2, 2, 0, 0);
+            Orc orc1 = new Orc("O", 2, $"{TextColorGreen}Nikos{TextColorReset}", 100, 5, 8, 6, 1, 0, 0);
+            Goblin goblin1 = new Goblin("G", 4, $"{BrigtGreen}Johnny{TextColorReset}", 85, 5, 8, 6, 1, 0, 0);
             DrawMap drawMap = new DrawMap(map, mapSizeX, mapSizeY);
             //Creature[] creature = { cyclop1, orc1, goblin1 };
 

@@ -40,6 +40,7 @@ namespace SalesAdventure
 
                 if (keyInfo.Key == ConsoleKey.A)
                 {
+                    //Creature.EncounterFight(drawMap, map, player1, orc1);
                     orc1.OrcEncounter(drawMap, map, player1, orc1);
                     cyclop1.CyclopEncounter(drawMap, map, player1, cyclop1);
                     goblin1.GoblinEncounter(drawMap, map, player1, goblin1);

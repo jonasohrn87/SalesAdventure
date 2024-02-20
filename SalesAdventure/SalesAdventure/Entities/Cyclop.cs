@@ -30,6 +30,11 @@ namespace SalesAdventure.Entities
         //    //map[this.positionY, this.positionX] = this.creatureIcon;
         //}
 
+        public override void Blocking(Creature target)
+        {
+
+        }
+
         public override void Attack(Creature target)
         {
             Random random = new Random();
@@ -76,29 +81,56 @@ namespace SalesAdventure.Entities
             }
         }
 
-        public void CyclopEncounter(DrawMap drawMap, string[,] map, Player player1, Cyclop cyclop1)
+        public void CyclopEncounter(DrawMap drawMap, string[,] map, Player player1, Creature target)
         {
+            //if (map[player1.positionY, player1.positionX] == map[this.positionY, this.positionX])
+            //{
+            //    Mechanics.monsterEncounter = true;
+            //    while (Mechanics.monsterEncounter)
+            //    {
+            //        if (player1.luck > this.luck)
+            //        {
+            //            Console.WriteLine($"{player1.name} will do the first attack.");
+            //            Console.ReadLine();
+
+            //            player1.PlayerAttackMenu(drawMap, cyclop1, player1);
+            //            CreatureDeafeated(drawMap, player1, cyclop1);
+            //        }
+            //        else if (player1.luck < this.luck)
+            //        {
+            //            Console.WriteLine($"{this.name} will do the first attack.");
+            //            Console.ReadLine();
+            //            //Attack(cyclop1);
+            //            Attacks(player1);
+            //            player1.PlayerAttackMenu(drawMap, cyclop1, player1);
+            //            CreatureDeafeated(drawMap, player1, cyclop1);
+            //        }
+            //    }
+            //}
             if (map[player1.positionY, player1.positionX] == map[this.positionY, this.positionX])
             {
                 Mechanics.monsterEncounter = true;
                 while (Mechanics.monsterEncounter)
                 {
-                    if (player1.luck > this.luck)
+                    LuckyStart(player1, target);
+                    Console.WriteLine($"{player1.name} lucky roll: {playerLucky} and {this.name} lucky roll: {monsterLucky}");
+                    if (playerLucky > monsterLucky)
                     {
                         Console.WriteLine($"{player1.name} will do the first attack.");
                         Console.ReadLine();
 
-                        player1.PlayerAttackMenu(drawMap, cyclop1, player1);
-                        CreatureDeafeated(drawMap, player1, cyclop1);
+                        player1.PlayerAttackMenu(drawMap, target, player1);
+                        CreatureDeafeated(drawMap, player1, target);
+                        Attacks(player1);
                     }
-                    else if (player1.luck < this.luck)
+                    else if (playerLucky < monsterLucky)
                     {
+                        Console.ReadLine();
                         Console.WriteLine($"{this.name} will do the first attack.");
                         Console.ReadLine();
-                        //Attack(cyclop1);
                         Attacks(player1);
-                        player1.PlayerAttackMenu(drawMap, cyclop1, player1);
-                        CreatureDeafeated(drawMap, player1, cyclop1);
+                        player1.PlayerAttackMenu(drawMap, target, player1);
+                        CreatureDeafeated(drawMap, player1, target);
                     }
                 }
             }

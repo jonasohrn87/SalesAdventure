@@ -31,6 +31,11 @@ namespace SalesAdventure.Entities
         //    //map[this.positionY, this.positionX] = this.creatureIcon;
         //}
 
+        public override void Blocking(Creature target)
+        {
+
+        }
+
         public override void Attack(Creature target)
         {
             Random random = new Random();
@@ -48,10 +53,10 @@ namespace SalesAdventure.Entities
 
         public override void ThrowRock(Creature target)
         {
-            Random random = new Random(); 
+            Random random = new Random();
             double orcRock = (random.Next(1, 15) + this.strength) * this.wackiness;
             bool isCriticalHit = random.Next(80) < this.luck;
-            if (isCriticalHit) 
+            if (isCriticalHit)
             {
                 orcRock *= 2;
                 Console.WriteLine($"{this.name} lands a critical hit with a rock on {target.name}!");
@@ -61,7 +66,7 @@ namespace SalesAdventure.Entities
             Console.WriteLine($"{this.name} throws a rock on {target.name} for {orcRock} damage. {target.name} stumbles and have now {target.hp} HP left.");
         }
 
-        public override void Attacks (Creature target)
+        public override void Attacks(Creature target)
         {
             Random random = new Random();
             int attacking = random.Next(1, 3);
@@ -77,29 +82,37 @@ namespace SalesAdventure.Entities
             }
         }
 
-        public void OrcEncounter(DrawMap drawMap, string[,] map, Player player1, Orc orc1)
+        //public override void EncounterFight(DrawMap drawMap, string[,] map, Player player1, Creature target)
+        //{
+
+        //}
+
+        public void OrcEncounter(DrawMap drawMap, string[,] map, Player player1, Creature target)
         {
-            if(map[player1.positionY, player1.positionX] == map[this.positionY, this.positionX])
+            if (map[player1.positionY, player1.positionX] == map[this.positionY, this.positionX])
             {
                 Mechanics.monsterEncounter = true;
                 while (Mechanics.monsterEncounter)
                 {
-                    if (player1.luck > this.luck)
+                    LuckyStart(player1, target);
+                    Console.WriteLine($"{player1.name} lucky roll: {playerLucky} and {this.name} lucky roll: {monsterLucky}");
+                    if (playerLucky > monsterLucky)
                     {
                         Console.WriteLine($"{player1.name} will do the first attack.");
                         Console.ReadLine();
 
-                        player1.PlayerAttackMenu(drawMap, orc1, player1);
-                        CreatureDeafeated(drawMap, player1, orc1);
+                        player1.PlayerAttackMenu(drawMap, target, player1);
+                        CreatureDeafeated(drawMap, player1, target);
+                        Attacks(player1);
                     }
-                    else if (player1.luck < this.luck)
+                    else if (playerLucky < monsterLucky)
                     {
+                        Console.ReadLine();
                         Console.WriteLine($"{this.name} will do the first attack.");
                         Console.ReadLine();
                         Attacks(player1);
-                        //Attack(player1);
-                        player1.PlayerAttackMenu(drawMap, orc1, player1);
-                        CreatureDeafeated(drawMap, player1, orc1);
+                        player1.PlayerAttackMenu(drawMap, target, player1);
+                        CreatureDeafeated(drawMap, player1, target);
                     }
                 }
             }
