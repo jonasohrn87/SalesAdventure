@@ -68,6 +68,7 @@ namespace SalesAdventure
                 Console.WriteLine("Use Arrows or WASD to Move around or press Q to Quit\n");
 
                 drawMap.Draw();
+                Inventory.DrawInventory(drawMap, map, mapSizeY, mapSizeX);
                 drawMap.Fill();
 
                 player1.PlacePlayer(drawMap);
