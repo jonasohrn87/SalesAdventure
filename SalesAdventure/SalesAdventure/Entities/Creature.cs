@@ -9,21 +9,112 @@ namespace SalesAdventure.Entities
 {
     public abstract partial class Creature
     {
-        public string creatureIcon;
-        public int lvl;
-        public string name;
-        public double hp;
-        public int luck;
-        public int strength;
-        public int charisma;
-        public int wackiness;
-        public int positionY;
-        public int positionX;
-        public int playerLucky;
-        public int monsterLucky;
+        private string icon;
+        private int lvl;
+        private string creatureName;
+        private double hp;
+        private int luck;
+        private int strength;
+        private int charisma;
+        private int wackiness;
+        private int positionY;
+        private int positionX;
+        private int playerLucky;
+        private int monsterLucky;
+
         public Creature()
         {
         }
+
+        /*
+        private string icon;
+        private int lvl;
+        private string creatureName;
+        private double hp;
+        private int luck;
+        private int strength;
+        private int charisma;
+        private int wackiness;
+        private int positionY;
+        private int positionX;
+        private int playerLucky;
+        private int monsterLucky;
+        */
+
+
+        public string CreatureIcon
+        {
+            get { return icon; }   // get method
+            set { icon = value; }  // set method
+        }
+        public int Lvl
+        {
+            get { return lvl; }
+            set { lvl = value; }
+        }
+
+        public string Name
+        {
+            get { return creatureName; }
+            set { creatureName = value; }
+        }
+
+        public double Hp
+        {
+            get { return hp; }
+            set { hp = value; }
+        }
+
+        public int Luck
+        {
+            get { return luck; }
+            set { luck = value; }
+        }
+
+        public int Strength
+        {
+            get { return strength; }
+            set { strength = value; }
+        }
+
+        public int Charisma
+        {
+            get { return charisma; }
+            set { charisma = value; }
+        }
+
+        public int Wackiness
+        {
+            get { return wackiness; }
+            set { wackiness = value; }
+        }
+
+        public int PositionY
+        {
+            get { return positionY; }
+            set { positionY = value; }
+        }
+
+        public int PositionX
+        {
+            get { return positionX; }
+            set { positionX = value; }
+        }
+
+        public int PlayerLucky
+        {
+            get { return playerLucky; }
+            set { playerLucky = value; }
+        }
+
+        public int MonsterLucky
+        {
+            get { return monsterLucky; }
+            set { monsterLucky = value; }
+        }
+
+
+
 
         public abstract void Blocking(Creature target);
 
@@ -37,21 +128,20 @@ namespace SalesAdventure.Entities
         public int LuckyStart(Player player1, Creature target)
         {
             Random random = new Random();
-            playerLucky = random.Next(1, 8) + player1.luck;
-            monsterLucky = random.Next(1, 8) + target.luck;
+            PlayerLucky = random.Next(1, 8) + player1.Luck;
+            MonsterLucky = random.Next(1, 8) + target.Luck;
 
-            return playerLucky + monsterLucky;
+            return PlayerLucky + MonsterLucky;
         }
 
         public void CreatureDeafeated(DrawMap drawMap, Player player1, Creature target)
         {
             if (target.hp <= 0)
             {
-                this.creatureIcon = ".";
-                this.positionY = 0;
-                this.positionX = 0;
-                this.creatureIcon = "#";
-                //this.hp = 0;
+                this.CreatureIcon = ".";
+                this.PositionY = 0;
+                this.PositionX = 0;
+                this.CreatureIcon = "#";
                 Mechanics.monsterEncounter = false;
                 Mechanics.creatureCollision = false;
                 player1.PlacePlayer(drawMap);

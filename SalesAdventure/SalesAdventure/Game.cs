@@ -20,6 +20,8 @@ namespace SalesAdventure
         public Game()
         {
         }
+
+
         public void Run()
         {
             Console.CursorVisible = false;
@@ -36,31 +38,31 @@ namespace SalesAdventure
             Orc orc1 = new Orc("O", 2, $"{TextColorGreen}Nikos{TextColorReset}", 100, 5, 8, 6, 1, 14, 12);
             Goblin goblin1 = new Goblin("G", 4, $"{BrigtGreen}Johnny{TextColorReset}", 85, 5, 8, 6, 1, 19, 5);
             DrawMap drawMap = new DrawMap(map, mapSizeX, mapSizeY);
-            //Inventory inventory = new Inventory(map, mapSizeX, mapSizeY);
             //Creature[] creature = { cyclop1, orc1, goblin1 };
 
             Item pie = new Item("?", "Pie", 100, 0, 0, 0, 0, 8, 8);
             Item apple = new Item("?", "Apple", 50, 0, 0, 0, 0, 10, 10);
 
-            Item.inventory.Add(1, $"{pie.name} + {pie.hp}");
-            Item.inventory.Add(2, $"apple");
+            Item.inventory.Add(1, $"{pie.Name} - {pie.Hp} +HP");
+            Item.inventory.Add(2, $"{apple.Name} - {apple.Hp} +HP");
 
-            //foreach (KeyValuePair<int> int inventoryPlayer)
+
+            //foreach (/*KeyValuePair<int, string> */var item in Item.inventory)
             //{
-            //    Console.WriteLine(items);
+            //    Console.WriteLine($"{item.Key}: {item.Value}");
             //}
-            foreach (KeyValuePair<int, string> item in Item.inventory)
-            {
-                Console.WriteLine($"Key: {item.Key}, Value: {item.Value}");
-            }
-            //Console.WriteLine($"Key: {inventoryPlayer}, Value: {item.Value}");
-            Console.WriteLine(Item.inventory);
-            //Item.inventory[]();
+            //int key = 2;
+            //Item.inventory.TryGetValue(key, out string inventoryItem);
+            //Console.WriteLine(inventoryItem ?? "");
 
+            //Console.Write(apple.Name + apple.Hp);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("Welcome Player!!\nPress Enter to play the SalesAdventures\n");
             Console.ReadLine();
 
             drawMap.Draw();
+
             drawMap.Fill();
             //drawMap.SpawnEnemies(cyclop1, goblin1, orc1);
             player1.PlacePlayer(drawMap);

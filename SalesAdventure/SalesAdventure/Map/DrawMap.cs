@@ -56,23 +56,6 @@ namespace SalesAdventure.Map
                 }
             }
         }
-        //public void Fill()
-        //{
-        //    for (int i = 0; i < mapSizeY; i++)
-        //    {
-        //        for (int j = 0; j < mapSizeX; j++)
-        //        {
-        //            if (i == 0 || i == mapSizeY - 1 || j == 0 || j == mapSizeX - 1)
-        //            {
-        //                map[i, j] = "#"; // # representerar väggar
-        //            }
-        //            else
-        //            {
-        //                map[i, j] = ".";
-        //            }
-        //        }
-        //    }
-        //}
 
         //public void PlaceItems(Item pie, Item apple)
         //{
@@ -82,11 +65,11 @@ namespace SalesAdventure.Map
 
         public void PlaceObjects(Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
-            map[cyclop1.positionY, cyclop1.positionX] = cyclop1.creatureIcon;
-            map[orc1.positionY, orc1.positionX] = orc1.creatureIcon;
-            map[goblin1.positionY, goblin1.positionX] = goblin1.creatureIcon;
-            map[pie.positionY, pie.positionX] = pie.itemIcon;
-            map[apple.positionY, apple.positionX] = apple.itemIcon;
+            map[cyclop1.PositionY, cyclop1.PositionX] = cyclop1.CreatureIcon;
+            map[orc1.PositionY, orc1.PositionX] = orc1.CreatureIcon;
+            map[goblin1.PositionY, goblin1.PositionX] = goblin1.CreatureIcon;
+            map[pie.PositionY, pie.PositionX] = pie.ItemIcon;
+            map[apple.PositionY, apple.PositionX] = apple.ItemIcon;
         }
 
         //public void SpawnEnemies(Cyclop cyclop1, Goblin goblin1, Orc orc1)
