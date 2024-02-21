@@ -13,24 +13,40 @@ namespace SalesAdventure
         public Mechanics()
         {
         }
-        public static bool creaturePlayerCollision = false;
+        public static bool creatureCollision = false;
         public static bool monsterEncounter = false;
+        public static bool itemCollision = false;
         public static ConsoleKeyInfo keyInfo = Console.ReadKey();
 
-        public static bool CreaturePlayerPosition(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1)
+        public static bool CollisionPosition(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
             if (map[player1.positionY, player1.positionX] == map[cyclop1.positionY, cyclop1.positionX] || map[player1.positionY, player1.positionX] == map[goblin1.positionY, goblin1.positionX] || map[player1.positionY, player1.positionX] == map[orc1.positionY, orc1.positionX])
             {
-                return creaturePlayerCollision = true;
+                return creatureCollision = true;
             }
-            return creaturePlayerCollision = false;
+            else if (map[player1.positionY, player1.positionX] == map[pie.positionY, pie.positionX] || map[player1.positionY, player1.positionX] == map[apple.positionY, apple.positionX])
+            {
+                return itemCollision = true;
+            }
+            else
+            return (creatureCollision = false) & (itemCollision = false);
         }
 
-        public static void MonsterEncounter(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1)
+        public static void Encounters(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
-            CreaturePlayerPosition(map, drawMap, player1, cyclop1, goblin1, orc1);
+            CollisionPosition(map, drawMap, player1, cyclop1, goblin1, orc1, pie, apple);
 
-            while (creaturePlayerCollision)
+
+            if (!itemCollision && map[player1.positionY, player1.positionX] == map[pie.positionY, pie.positionX])
+            {
+                map[3, 45] = pie.name + pie.hp; // skriv ut item i inventory
+            }
+            //else if (!itemCollision && map[player1.positionY, player1.positionX] == map[apple.positionY, apple.positionX])
+            //{
+
+            //}
+
+            while (creatureCollision)
             {
                 Console.Clear();
                 Console.WriteLine("You've encountered an Enemy! What will you do?");
@@ -47,7 +63,7 @@ namespace SalesAdventure
                 }
                 else if (keyInfo.Key == ConsoleKey.F)
                 {
-                    creaturePlayerCollision = false;
+                    creatureCollision = false;
                     player1.positionX--;
                     player1.PlacePlayer(drawMap);
                 }
@@ -59,21 +75,24 @@ namespace SalesAdventure
             }
         }
 
-        public static void MovePlayer(DrawMap drawMap, string[,] map, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, int mapSizeY, int mapSizeX)
+        public static void MovePlayer(DrawMap drawMap, string[,] map, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple, int mapSizeY, int mapSizeX)
         {
             bool runGame = true;
             while (runGame)
             {
                 Console.Clear();
                 Console.WriteLine("Use Arrows or WASD to Move around or press Q to Quit\n");
+                Console.WriteLine("Press [number] to comsume an item from Inventory\n");
 
                 drawMap.Draw();
                 drawMap.Fill();
 
                 player1.PlacePlayer(drawMap);
-                drawMap.PlaceEnemies(player1, cyclop1, goblin1, orc1);
-                Mechanics.MonsterEncounter(map, drawMap, player1, cyclop1, goblin1, orc1);
-                //Inventory.DrawInventory(drawMap, map, mapSizeY, mapSizeX);
+                //drawMap.PlaceEnemies(player1, cyclop1, goblin1, orc1);
+                //drawMap.PlaceItems(pie, apple);
+                drawMap.PlaceObjects(cyclop1, goblin1, orc1, pie, apple);
+                Mechanics.Encounters(map, drawMap, player1, cyclop1, goblin1, orc1, pie, apple);
+                Inventory.DrawInventory(drawMap, map, mapSizeY, mapSizeX);
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey();
 

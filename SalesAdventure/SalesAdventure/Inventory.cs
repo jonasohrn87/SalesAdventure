@@ -19,12 +19,16 @@ namespace SalesAdventure
         {
             string[] InventoryText = { "#", "#", "-", "I", "N", "V", "E", "N", "T", "O", "R", "Y", "-", "#", "#" };
 
+            
+
             for (int i = 1; i < 24; i++)
             {
                 int invindex = 0;
                 for (int x = 40; x < 55; x++)
                 {
                     map[0, x] = InventoryText[invindex];
+
+                    //map[3, x] = Game.inventoryPlayer[invindex];
                     invindex++;
                 }
                 for (int j = 36; j < 60; j++)
