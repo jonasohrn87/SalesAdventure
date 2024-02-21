@@ -74,42 +74,48 @@ namespace SalesAdventure.Map
         //    }
         //}
 
+        //public void PlaceItems(Item pie, Item apple)
+        //{
+        //    map[pie.positionY, pie.positionX] = pie.itemIcon;
+        //    map[apple.positionY, apple.positionX] = apple.itemIcon;
+        //}
 
-
-        public void PlaceEnemies(Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1)
+        public void PlaceObjects(Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
             map[cyclop1.positionY, cyclop1.positionX] = cyclop1.creatureIcon;
             map[orc1.positionY, orc1.positionX] = orc1.creatureIcon;
             map[goblin1.positionY, goblin1.positionX] = goblin1.creatureIcon;
+            map[pie.positionY, pie.positionX] = pie.itemIcon;
+            map[apple.positionY, apple.positionX] = apple.itemIcon;
         }
 
-        public void SpawnEnemies(Cyclop cyclop1, Goblin goblin1, Orc orc1)
-        {
-            Random randomMonsterPosition = new Random();
+        //public void SpawnEnemies(Cyclop cyclop1, Goblin goblin1, Orc orc1)
+        //{
+        //    Random randomMonsterPosition = new Random();
 
-            //cyclop1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1); //Y
-            //cyclop1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1); //X
+        //    //cyclop1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1); //Y
+        //    //cyclop1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1); //X
 
-            //orc1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
-            //orc1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
+        //    //orc1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
+        //    //orc1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
 
-            //goblin1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
-            //goblin1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
-
-
-            cyclop1.positionY = randomMonsterPosition.Next(1, 24 - 1); //Y
-            cyclop1.positionX = randomMonsterPosition.Next(1, 32 - 1); //X
-
-            orc1.positionY = randomMonsterPosition.Next(1, 24 - 1);
-            orc1.positionX = randomMonsterPosition.Next(1, 32 - 1);
-
-            goblin1.positionY = randomMonsterPosition.Next(1, 24 - 1);
-            goblin1.positionX = randomMonsterPosition.Next(1, 32 - 1);
+        //    //goblin1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
+        //    //goblin1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
 
 
-            map[cyclop1.positionY, cyclop1.positionX] = cyclop1.creatureIcon;
-            map[orc1.positionY, orc1.positionX] = orc1.creatureIcon;
-            map[goblin1.positionY, goblin1.positionX] = goblin1.creatureIcon;
-        }
+        //    cyclop1.positionY = randomMonsterPosition.Next(1, 24 - 1); //Y
+        //    cyclop1.positionX = randomMonsterPosition.Next(1, 32 - 1); //X
+
+        //    orc1.positionY = randomMonsterPosition.Next(1, 24 - 1);
+        //    orc1.positionX = randomMonsterPosition.Next(1, 32 - 1);
+
+        //    goblin1.positionY = randomMonsterPosition.Next(1, 24 - 1);
+        //    goblin1.positionX = randomMonsterPosition.Next(1, 32 - 1);
+
+
+        //    map[cyclop1.positionY, cyclop1.positionX] = cyclop1.creatureIcon;
+        //    map[orc1.positionY, orc1.positionX] = orc1.creatureIcon;
+        //    map[goblin1.positionY, goblin1.positionX] = goblin1.creatureIcon;
+        //}
     }
 }

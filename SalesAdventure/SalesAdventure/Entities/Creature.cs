@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SalesAdventure.Entities
 {
-    public abstract class Creature
+    public abstract partial class Creature
     {
         public string creatureIcon;
         public int lvl;
@@ -24,13 +24,6 @@ namespace SalesAdventure.Entities
         public Creature()
         {
         }
-
-        //public virtual void CreaturePosition()
-        //{
-        //}
-
-
-
 
         public abstract void Blocking(Creature target);
 
@@ -60,7 +53,7 @@ namespace SalesAdventure.Entities
                 this.creatureIcon = "#";
                 //this.hp = 0;
                 Mechanics.monsterEncounter = false;
-                Mechanics.creaturePlayerCollision = false;
+                Mechanics.creatureCollision = false;
                 player1.PlacePlayer(drawMap);
                 Console.Clear();
                 Console.WriteLine("You WON! Press any key to Continue.");

@@ -105,7 +105,7 @@ namespace SalesAdventure.Entities
                 case ConsoleKey.D4:
                     player1.positionX--;
                     Mechanics.monsterEncounter = false;
-                    Mechanics.creaturePlayerCollision = false;
+                    Mechanics.creatureCollision = false;
                     player1.PlacePlayer(drawMap);
                     break;
 
