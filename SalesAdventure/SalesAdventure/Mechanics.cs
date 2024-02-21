@@ -68,12 +68,12 @@ namespace SalesAdventure
                 Console.WriteLine("Use Arrows or WASD to Move around or press Q to Quit\n");
 
                 drawMap.Draw();
-                Inventory.DrawInventory(drawMap, map, mapSizeY, mapSizeX);
                 drawMap.Fill();
 
                 player1.PlacePlayer(drawMap);
                 drawMap.PlaceEnemies(player1, cyclop1, goblin1, orc1);
                 Mechanics.MonsterEncounter(map, drawMap, player1, cyclop1, goblin1, orc1);
+                //Inventory.DrawInventory(drawMap, map, mapSizeY, mapSizeX);
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey();
 
