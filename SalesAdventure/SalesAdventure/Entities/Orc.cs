@@ -11,18 +11,18 @@ namespace SalesAdventure.Entities
 {
     public class Orc : Creature
     {
-        public Orc(string creatureIcon, int lvl, string name, double hp, int luck, int strength, int charisma, int wackiness, int positionY, int positionX)
+        public Orc(string CreatureIcon, int Lvl, string Name, double Hp, int Luck, int Strength, int Charisma, int Wackiness, int PositionY, int PositionX)
         {
-            this.creatureIcon = creatureIcon;
-            this.lvl = lvl;
-            this.name = name;
-            this.hp = hp;
-            this.luck = luck;
-            this.strength = strength;
-            this.charisma = charisma;
-            this.wackiness = wackiness;
-            this.positionY = positionY;
-            this.positionX = positionX;
+            this.CreatureIcon = CreatureIcon;
+            this.Lvl = Lvl;
+            this.Name = Name;
+            this.Hp = Hp;
+            this.Luck = Luck;
+            this.Strength = Strength;
+            this.Charisma = Charisma;
+            this.Wackiness = Wackiness;
+            this.PositionY = PositionY;
+            this.PositionX = PositionX;
         }
 
         //public override void CreaturePosition()
@@ -39,31 +39,31 @@ namespace SalesAdventure.Entities
         public override void Attack(Creature target)
         {
             Random random = new Random();
-            int orcAttack = random.Next(1, 10) + this.strength;
-            bool isCriticalHit = random.Next(100) < this.luck;
+            int orcAttack = random.Next(1, 10) + this.Strength;
+            bool isCriticalHit = random.Next(100) < this.Luck;
             if (isCriticalHit)
             {
                 orcAttack *= 2;
-                Console.WriteLine($"{this.name} lands a critical hit on {target.name}!");
+                Console.WriteLine($"{this.Name} lands a critical hit on {target.Name}!");
             }
-            target.hp -= orcAttack;
+            target.Hp -= orcAttack;
 
-            Console.WriteLine($"{this.name} attacks {target.name} for {orcAttack} damage. {target.name} have now {target.hp} HP left.");
+            Console.WriteLine($"{this.Name} attacks {target.Name} for {orcAttack} damage. {target.Name} have now {target.Hp} HP left.");
         }
 
         public override void ThrowRock(Creature target)
         {
             Random random = new Random();
-            double orcRock = (random.Next(1, 15) + this.strength) * this.wackiness;
-            bool isCriticalHit = random.Next(80) < this.luck;
+            double orcRock = (random.Next(1, 15) + this.Strength) * this.Wackiness;
+            bool isCriticalHit = random.Next(80) < this.Luck;
             if (isCriticalHit)
             {
                 orcRock *= 2;
-                Console.WriteLine($"{this.name} lands a critical hit with a rock on {target.name}!");
+                Console.WriteLine($"{this.Name} lands a critical hit with a rock on {target.Name}!");
             }
-            target.hp -= orcRock;
+            target.Hp -= orcRock;
 
-            Console.WriteLine($"{this.name} throws a rock on {target.name} for {orcRock} damage. {target.name} stumbles and have now {target.hp} HP left.");
+            Console.WriteLine($"{this.Name} throws a rock on {target.Name} for {orcRock} damage. {target.Name} stumbles and have now {target.Hp} HP left.");
         }
 
         public override void Attacks(Creature target)
@@ -89,26 +89,26 @@ namespace SalesAdventure.Entities
 
         public void OrcEncounter(DrawMap drawMap, string[,] map, Player player1, Creature target)
         {
-            if (map[player1.positionY, player1.positionX] == map[this.positionY, this.positionX])
+            if (map[player1.PositionY, player1.PositionX] == map[this.PositionY, this.PositionX])
             {
                 Mechanics.monsterEncounter = true;
                 while (Mechanics.monsterEncounter)
                 {
                     LuckyStart(player1, target);
-                    Console.WriteLine($"{player1.name} lucky roll: {playerLucky} and {this.name} lucky roll: {monsterLucky}");
-                    if (playerLucky > monsterLucky)
+                    Console.WriteLine($"{player1.Name} lucky roll: {PlayerLucky} and {this.Name} lucky roll: {MonsterLucky}");
+                    if (PlayerLucky > MonsterLucky)
                     {
-                        Console.WriteLine($"{player1.name} will do the first attack.");
+                        Console.WriteLine($"{player1.Name} will do the first attack.");
                         Console.ReadLine();
 
                         player1.PlayerAttackMenu(drawMap, target, player1);
                         CreatureDeafeated(drawMap, player1, target);
                         Attacks(player1);
                     }
-                    else if (playerLucky < monsterLucky)
+                    else if (PlayerLucky < MonsterLucky)
                     {
                         Console.ReadLine();
-                        Console.WriteLine($"{this.name} will do the first attack.");
+                        Console.WriteLine($"{this.Name} will do the first attack.");
                         Console.ReadLine();
                         Attacks(player1);
                         player1.PlayerAttackMenu(drawMap, target, player1);
