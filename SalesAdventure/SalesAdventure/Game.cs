@@ -11,13 +11,20 @@ namespace SalesAdventure
     {
         public static int mapSizeX = 60;
         public static int mapSizeY = 24;
+        //public static int mapSizeX = 12;
+        //public static int mapSizeY = 12;
         public string[,] map = new string[mapSizeY, mapSizeX];
+
+
+
+
 
         public Game()
         {
         }
         public void Run()
         {
+            Console.CursorVisible = false;
             string TextColorRed = "\u001b[31m";
             string TextColorGreen = "\u001b[32m";
             string BrigtGreen = "\u001b[92m";
@@ -31,17 +38,17 @@ namespace SalesAdventure
             Orc orc1 = new Orc("O", 2, $"{TextColorGreen}Nikos{TextColorReset}", 100, 5, 8, 6, 1, 0, 0);
             Goblin goblin1 = new Goblin("G", 4, $"{BrigtGreen}Johnny{TextColorReset}", 85, 5, 8, 6, 1, 0, 0);
             DrawMap drawMap = new DrawMap(map, mapSizeX, mapSizeY);
-            Inventory inventory = new Inventory(map, mapSizeX, mapSizeY);
+            //Inventory inventory = new Inventory(map, mapSizeX, mapSizeY);
             //Creature[] creature = { cyclop1, orc1, goblin1 };
 
             Console.WriteLine("Welcome Player!!\nPress Enter to play the SalesAdventures\n");
             Console.ReadLine();
 
             drawMap.Draw();
-            Inventory.DrawInventory(drawMap, map, mapSizeY, mapSizeX);
             drawMap.Fill();
             drawMap.SpawnEnemies(cyclop1, goblin1, orc1);
             player1.PlacePlayer(drawMap);
+            Inventory.DrawInventory(drawMap, map, mapSizeY, mapSizeX);
             Mechanics.MovePlayer(drawMap, map, player1, cyclop1, goblin1, orc1, mapSizeY, mapSizeX);
         }
     }

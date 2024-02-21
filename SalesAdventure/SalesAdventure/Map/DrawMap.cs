@@ -56,8 +56,25 @@ namespace SalesAdventure.Map
                 }
             }
         }
+        //public void Fill()
+        //{
+        //    for (int i = 0; i < mapSizeY; i++)
+        //    {
+        //        for (int j = 0; j < mapSizeX; j++)
+        //        {
+        //            if (i == 0 || i == mapSizeY - 1 || j == 0 || j == mapSizeX - 1)
+        //            {
+        //                map[i, j] = "#"; // # representerar väggar
+        //            }
+        //            else
+        //            {
+        //                map[i, j] = ".";
+        //            }
+        //        }
+        //    }
+        //}
 
-       
+
 
         public void PlaceEnemies(Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1)
         {
@@ -69,6 +86,16 @@ namespace SalesAdventure.Map
         public void SpawnEnemies(Cyclop cyclop1, Goblin goblin1, Orc orc1)
         {
             Random randomMonsterPosition = new Random();
+
+            //cyclop1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1); //Y
+            //cyclop1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1); //X
+
+            //orc1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
+            //orc1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
+
+            //goblin1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
+            //goblin1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
+
 
             cyclop1.positionY = randomMonsterPosition.Next(1, 24 - 1); //Y
             cyclop1.positionX = randomMonsterPosition.Next(1, 32 - 1); //X

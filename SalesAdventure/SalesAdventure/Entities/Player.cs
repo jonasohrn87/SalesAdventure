@@ -131,7 +131,7 @@ namespace SalesAdventure.Entities
                 this.positionX = newPosX;
                 PlacePlayer(drawMap);
             }
-            drawMap.Draw();
+            //drawMap.Draw();
         }
     }
 }
