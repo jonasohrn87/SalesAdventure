@@ -41,11 +41,11 @@ namespace SalesAdventure.Map
 
         public void Fill()
         {
-            for (int i = 0; i < 24; i++)
+            for (int i = 0; i < mapSizeY; i++)
             {
-                for (int j = 0; j < 32; j++)
+                for (int j = 0; j < mapSizeX; j++)
                 {
-                    if (i == 0 || i == 24 - 1 || j == 0 || j == 32 - 1)
+                    if (i == 0 || i == mapSizeY - 1 || j == 0 || j == mapSizeX - 1)
                     {
                         map[i, j] = "#"; // # representerar väggar
                     }

@@ -37,33 +37,19 @@ namespace SalesAdventure
                 return (creatureCollision = false) & (itemCollision = false);
         }
 
+
+
         public static void Encounters(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
             CollisionPosition(map, drawMap, player1, cyclop1, goblin1, orc1, pie, apple);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
 
-            //if (itemCollision && map[player1.positionY, player1.positionX] == map[pie.positionY, pie.positionX])
-            //{
-            //    Item.inventory.Add(1, $"{pie.name} - {pie.hp} HP");
-            //    Item.inventory.Add(2, $"{apple.name} - {apple.hp} HP");
-
-            //    int key = 1;
-            //    Item.inventory.TryGetValue(key, out string inventoryItem);
-            //    Console.WriteLine(inventoryItem ?? "");
-            //    Console.ReadLine();
-            //    //map[3, 45] = pie.name + pie.hp; // skriv ut item i inventory
-            //    //pie.positionY = 3;
-            //    //pie.positionX = 45;
-            //    //pie.itemIcon = pie.name;
-            //}
-            //else if (itemCollision && map[player1.positionY, player1.positionX] == map[apple.positionY, apple.positionX])
-            //{
-            //    //map[5, 45] = 
-            //        Console.Write(apple.name + apple.hp); // skriv ut item i inventory
-            //    apple.positionY = 5;
-            //    apple.positionX = 45;
-            //}
+            while (itemCollision)
+            {
+                Item.Pie(map, player1, pie);
+                Item.Apple(map, player1, apple);
+            }
 
             while (creatureCollision)
             {
@@ -75,7 +61,6 @@ namespace SalesAdventure
 
                 if (keyInfo.Key == ConsoleKey.A)
                 {
-                    //Creature.EncounterFight(drawMap, map, player1, orc1);
                     orc1.OrcEncounter(drawMap, map, player1, orc1);
                     cyclop1.CyclopEncounter(drawMap, map, player1, cyclop1);
                     goblin1.GoblinEncounter(drawMap, map, player1, goblin1);
@@ -90,6 +75,7 @@ namespace SalesAdventure
                 {
                     Console.WriteLine("\nA. Attack!!\nF. Flee encounter!\n");
                     keyInfo = Console.ReadKey();
+                    Console.Clear();
                 }
             }
             Console.BackgroundColor = ConsoleColor.Black;
@@ -102,20 +88,18 @@ namespace SalesAdventure
             while (runGame)
             {
                 Console.Clear();
-                Console.WriteLine("Use Arrows or WASD to Move around or press Q to Quit\n");
-                Console.WriteLine("Press [number] to comsume an item from Inventory\n");
+                Console.WriteLine("Use Arrows or WASD to Move around or press Q to Quit ------------------- Press [number] to comsume an item from Inventory");
 
                 drawMap.Draw();
                 drawMap.Fill();
-
+                Inventory.DrawInventory();
                 player1.PlacePlayer(drawMap);
-                //drawMap.PlaceEnemies(player1, cyclop1, goblin1, orc1);
-                //drawMap.PlaceItems(pie, apple);
+
                 drawMap.PlaceObjects(cyclop1, goblin1, orc1, pie, apple);
                 Mechanics.Encounters(map, drawMap, player1, cyclop1, goblin1, orc1, pie, apple);
-                Inventory.DrawInventory(drawMap, map, mapSizeY, mapSizeX);
 
-                ConsoleKeyInfo keyInfo = Console.ReadKey();
+                keyInfo = Console.ReadKey();
+
 
                 switch (keyInfo.Key)
                 {
@@ -140,9 +124,44 @@ namespace SalesAdventure
                         break;
 
                     case ConsoleKey.D1:
+
+                        if (Item.inventory[1] != null)
+                        {
+                            if (Item.inventory[1] == ($"{pie.Name} - {pie.Hp} +HP"))
+                            {
+                                player1.Hp += pie.Hp;
+                            }
+                            else if ((Item.inventory[1] == $"{apple.Name} - {apple.Hp} +HP"))
+                            {
+                                player1.Hp += apple.Hp;
+                            }
+                            Item.inventory.RemoveAt(1);
+                        }
+                        //else 
+                        //{ 
+                        //    Console.WriteLine("No such item exist in inventory"); 
+                        //}
                         break;
 
+
                     case ConsoleKey.D2:
+
+                        if (Item.inventory[2] != null)
+                        {
+                            if (Item.inventory[2] == ($"{pie.Name} - {pie.Hp} +HP"))
+                            {
+                                player1.Hp += pie.Hp;
+                            }
+                            else if ((Item.inventory[2] == $"{apple.Name} - {apple.Hp} +HP"))
+                            {
+                                player1.Hp += apple.Hp;
+                            }
+                            Item.inventory.RemoveAt(2);
+                        }
+                        //else
+                        //{
+                        //    Console.WriteLine("No such item exist in inventory");
+                        //}
                         break;
 
                     case ConsoleKey.D3:

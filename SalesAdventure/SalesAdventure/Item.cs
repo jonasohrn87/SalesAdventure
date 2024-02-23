@@ -19,7 +19,7 @@ namespace SalesAdventure
         private int wackiness;
         private int positionY;
         private int positionX;
-        public static Dictionary<int, string> inventory = new Dictionary<int, string>();
+        public static List<string> inventory = new List<string>();
 
         public Item(string itemIcon, string name, double hp, int luck, int strength, int charisma, int wackiness, int positionY, int positionX)
         {
@@ -87,14 +87,71 @@ namespace SalesAdventure
             set { positionX = value; }
         }
 
-        //public Dictionary<int, string> GetDictionary()
-        //{
-        //    return inventory;
-        //}
+        public static void Pie(string[,] map, Player player1, Item pie)
+        {
+            if (map[player1.PositionY, player1.PositionX] == map[pie.PositionY, pie.PositionX])
+            {
+                Console.WriteLine($"Press 1 to Consume or 2 to place {pie.Name} in inventory?");
+                Mechanics.keyInfo = Console.ReadKey();
+                switch (Mechanics.keyInfo.Key)
+                {
+                    case ConsoleKey.D1:
+                        player1.Hp += pie.Hp;
+                        Console.WriteLine("Consumed Pie");
+                        pie.ItemIcon = ".";
+                        pie.PositionY = 0;
+                        pie.PositionX = 0;
+                        pie.ItemIcon = "#";
+                        Mechanics.itemCollision = false;
+                        break;
 
-        //public void SetDictionary(Dictionary<int, string>Inventorys)
-        //{
-        //    inventory = Inventorys;
-        //}
+                    case ConsoleKey.D2:
+                        Item.inventory.Add($"{pie.Name} - {pie.Hp} +HP");
+                        Console.WriteLine("Added Pie to inventory");
+                        pie.ItemIcon = ".";
+                        pie.PositionY = 0;
+                        pie.PositionX = 0;
+                        pie.ItemIcon = "#";
+                        Mechanics.itemCollision = false;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+        public static void Apple(string[,] map, Player player1, Item apple)
+        {
+            if (map[player1.PositionY, player1.PositionX] == map[apple.PositionY, apple.PositionX])
+            {
+                Console.WriteLine($"Press 1 to Consume or 2 to place {apple.Name} in inventory?");
+                Mechanics.keyInfo = Console.ReadKey();
+                switch (Mechanics.keyInfo.Key)
+                {
+                    case ConsoleKey.D1:
+                        player1.Hp += apple.Hp;
+                        Console.WriteLine($"Consumed Apple");
+                        apple.ItemIcon = ".";
+                        apple.PositionY = 0;
+                        apple.PositionX = 0;
+                        apple.ItemIcon = "#";
+                        Mechanics.itemCollision = false;
+                        break;
+
+                    case ConsoleKey.D2:
+                        Item.inventory.Add($"{apple.Name} - {apple.Hp} +HP");
+                        Console.WriteLine("Added Apple to inventory");
+                        apple.ItemIcon = ".";
+                        apple.PositionY = 0;
+                        apple.PositionX = 0;
+                        apple.ItemIcon = "#";
+                        Mechanics.itemCollision = false;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
     }
 }
