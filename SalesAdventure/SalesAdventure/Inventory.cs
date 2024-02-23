@@ -1,3 +1,4 @@
+using SalesAdventure.Entities;
 using SalesAdventure.Map;
 
 namespace SalesAdventure
@@ -15,35 +16,32 @@ namespace SalesAdventure
             //this.InventorySizeX = InventorySizeX;
             //this.InventorySizeY = InventorySizeY;
         }
-        public static void DrawInventory(DrawMap drawMap, string[,] map, int mapSizeY, int mapSizeX)
+
+        
+
+        public static void DrawInventory()
         {
-            string[] InventoryText = { "#", "#", "-", "I", "N", "V", "E", "N", "T", "O", "R", "Y", "-", "#", "#" };
+            int count1 = 1;
+            Console.WriteLine("##### I N V E N T O R Y #####");
+           
 
-            
-
-            for (int i = 1; i < 24; i++)
+            for (var i = 0; i < Item.inventory.Count; i++)
             {
-                int invindex = 0;
-                for (int x = 40; x < 55; x++)
+                if (i == 0)
                 {
-                    map[0, x] = InventoryText[invindex];
-
-                    //map[3, x] = Game.inventoryPlayer[invindex];
-                    invindex++;
+                    Console.WriteLine("        "   + Item.inventory[i]);
                 }
-                for (int j = 36; j < 60; j++)
+                else
                 {
-                    if (i == 0 || i == 24 - 1 || j == 36 || j == 60 - 1)
-                    {
-                        drawMap.map[i, j] = "#"; // # representerar väggar
-                    }
 
-                    else
                     {
-                        drawMap.map[i, j] = " ";
+                        Console.WriteLine("       " + count1 + ":" + Item.inventory[i]);
+                        count1++;
+                        Console.WriteLine("");
                     }
                 }
             }
+            Console.WriteLine("##############################");
         }
 
     }

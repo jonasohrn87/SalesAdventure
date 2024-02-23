@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SalesAdventure.Entities
 {
-    public abstract partial class Creature
+    public abstract class Creature
     {
         private string icon;
         private int lvl;

@@ -25,13 +25,7 @@ namespace SalesAdventure.Entities
             this.PositionY = PositionY;
             this.PositionX = PositionX;
         }
-
-        //public override void CreaturePosition()
-        //{
-        //    int[] creaturePosYx = { this.positionY, this.positionX };
-        //    //map[this.positionY, this.positionX] = this.creatureIcon;
-        //}
-
+              
         public override void Blocking(Creature target)
         {
 
@@ -116,14 +110,13 @@ namespace SalesAdventure.Entities
             int newPosY = this.PositionY + movePosY;
             int newPosX = this.PositionX + movePosX;
 
-            if (newPosY > 0 && newPosY < mapSizeY - 1 && newPosX > 0 && newPosX < 32 - 1)
+            if (newPosY > 0 && newPosY < mapSizeY - 1 && newPosX > 0 && newPosX < mapSizeX - 1)
             {
                 drawMap.map[this.PositionY, this.PositionX] = ".";
                 this.PositionY = newPosY;
                 this.PositionX = newPosX;
                 PlacePlayer(drawMap);
             }
-            //drawMap.Draw();
         }
     }
 }
