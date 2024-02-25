@@ -24,17 +24,6 @@ namespace SalesAdventure.Entities
             this.PositionX = PositionX;
         }
 
-        //public override void CreaturePosition()
-        //{
-        //    int[] creaturePosYx = { this.positionY, this.positionX };
-        //    //map[this.positionY, this.positionX] = this.creatureIcon;
-        //}
-
-        public override void Blocking(Creature target)
-        {
-
-        }
-
         public override void Attack(Creature target)
         {
             Random random = new Random();
@@ -43,11 +32,11 @@ namespace SalesAdventure.Entities
             if (isCriticalHit)
             {
                 cyclopAttack *= 2;
-                Console.WriteLine($"{this.Name} lands a critical hit on {target.Name}!");
+                Console.WriteLine($"\n{this.Name}{Game.TextColor} lands a critical hit on {target.Name}{Game.TextColor}!");
             }
-            target.Hp -= cyclopAttack;
+            Math.Round(target.Hp -= cyclopAttack);
 
-            Console.WriteLine($"{this.Name} attacks {target.Name} for {cyclopAttack} damage. {target.Name} have now {target.Hp} HP left.");
+            Console.WriteLine($"\n{this.Name}{Game.TextColor} attacks {target.Name}{Game.TextColor} for {Game.HpColor}{cyclopAttack}{Game.TextColor} damage. {target.Name}{Game.TextColor} have now {Game.HpColor}{target.Hp}{Game.TextColor} HP left.");
         }
 
         public override void ThrowRock(Creature target)
@@ -57,12 +46,12 @@ namespace SalesAdventure.Entities
             bool isCriticalHit = random.Next(80) < this.Luck;
             if (isCriticalHit)
             {
-                cyclopRock *= 3;
-                Console.WriteLine($"{this.Name} lands a critical hit with a rock on {target.Name}!");
+                Math.Round(cyclopRock *= 3);
+               Console.WriteLine($"\n{this.Name}{Game.TextColor} lands a critical hit with a rock on {target.Name}{Game.TextColor}!");
             }
-            target.Hp -= cyclopRock;
+            Math.Round(target.Hp -= cyclopRock);
 
-            Console.WriteLine($"{this.Name} throws a rock on {target.Name} for {cyclopRock} damage. {target.Name} stumbles and have now {target.Hp} HP left.");
+            Console.WriteLine($"\n{this.Name}{Game.TextColor} throws a rock on {target.Name}{Game.TextColor} for {Game.HpColor}{cyclopRock}{Game.TextColor} damage. {target.Name}{Game.TextColor} stumbles and have now {Game.HpColor}{target.Hp}{Game.TextColor} HP left.");
         }
 
         public override void Attacks(Creature target)
@@ -72,44 +61,46 @@ namespace SalesAdventure.Entities
             if (attacking >= 2)
             {
                 Attack(target);
-                Console.ReadLine();
             }
             else
             {
                 ThrowRock(target);
-                Console.ReadLine();
             }
         }
 
-        public void CyclopEncounter(DrawMap drawMap, string[,] map, Player player1, Creature target)
+        private void CyclopEncounter(DrawMap drawMap, string[,] map, Player player1, Creature target, Item pie, Item apple)
         {
             if (map[player1.PositionY, player1.PositionX] == map[this.PositionY, this.PositionX])
             {
-                Mechanics.monsterEncounter = true;
-                while (Mechanics.monsterEncounter)
+                Mechanics.MonsterEncounter = true;
+                while (Mechanics.MonsterEncounter)
                 {
-                    LuckyStart(player1, target);
-                    Console.WriteLine($"{player1.Name} lucky roll: {PlayerLucky} and {this.Name} lucky roll: {MonsterLucky}");
+                    ShowLucky(player1, target);
+                    Console.WriteLine($"\n{player1.Name}{Game.TextColor} lucky roll: {Game.ColorReset}{PlayerLucky}{Game.TextColor} and {this.Name}{Game.TextColor} lucky roll: {Game.ColorReset}{MonsterLucky}");
                     if (PlayerLucky > MonsterLucky)
                     {
-                        Console.WriteLine($"{player1.Name} will do the first attack.");
+                        Console.WriteLine($"{player1.Name}{Game.TextColor} attacks first.");
                         Console.ReadLine();
 
-                        player1.PlayerAttackMenu(drawMap, target, player1);
-                        CreatureDeafeated(drawMap, player1, target);
+                        player1.AttackMenu(drawMap, target, player1, pie, apple);
+                        CreatureDeath(drawMap, player1, target);
                         Attacks(player1);
                     }
                     else if (PlayerLucky < MonsterLucky)
                     {
                         Console.ReadLine();
-                        Console.WriteLine($"{this.Name} will do the first attack.");
+                        Console.WriteLine($"{this.Name}{Game.TextColor} attacks first.");
                         Console.ReadLine();
                         Attacks(player1);
-                        player1.PlayerAttackMenu(drawMap, target, player1);
-                        CreatureDeafeated(drawMap, player1, target);
+                        player1.AttackMenu(drawMap, target, player1, pie, apple);
+                        CreatureDeath(drawMap, player1, target);
                     }
                 }
             }
+        }
+        public void CyclopEncount(DrawMap drawMap, string[,] map, Player player1, Creature target, Item pie, Item apple)
+        {
+            CyclopEncounter(drawMap, map, player1, target, pie, apple);
         }
     }
 }

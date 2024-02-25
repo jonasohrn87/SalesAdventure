@@ -13,155 +13,196 @@ namespace SalesAdventure
         public Mechanics()
         {
         }
-        public static bool creatureCollision = false;
-        public static bool monsterEncounter = false;
-        public static bool itemCollision = false;
-        public static ConsoleKeyInfo keyInfo = Console.ReadKey();
+        private static bool creatureCollision = false;
+        private static bool monsterEncounter = false;
+        private static bool itemCollision = false;
 
-        public static void PlayerDeath()
+        public static bool CreatureCollision
+        {
+            get { return creatureCollision; }
+            set { creatureCollision = value; }
+        }
+        public static bool MonsterEncounter
+        {
+            get { return monsterEncounter; }
+            set { monsterEncounter = value; }
+        }
+        public static bool ItemCollision
+        {
+            get { return itemCollision; }
+            set { itemCollision = value; }
+        }
+        private static void PlayerDeath()
         {
 
         }
+        public static void Death()
+        {
+            PlayerDeath();
+        }
 
-        public static bool CollisionPosition(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
+        private static bool CollisionPosition(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
             if (map[player1.PositionY, player1.PositionX] == map[cyclop1.PositionY, cyclop1.PositionX] || map[player1.PositionY, player1.PositionX] == map[goblin1.PositionY, goblin1.PositionX] || map[player1.PositionY, player1.PositionX] == map[orc1.PositionY, orc1.PositionX])
             {
-                return creatureCollision = true;
+                return CreatureCollision = true;
             }
             else if (map[player1.PositionY, player1.PositionX] == map[pie.PositionY, pie.PositionX] || map[player1.PositionY, player1.PositionX] == map[apple.PositionY, apple.PositionX])
             {
-                return itemCollision = true;
+                return ItemCollision = true;
             }
             else
-                return (creatureCollision = false) & (itemCollision = false);
+                return (CreatureCollision = false) & (ItemCollision = false);
+        }
+        public static bool Collision(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
+        {
+            return CollisionPosition(map, drawMap, player1, cyclop1, goblin1, orc1, pie, apple);
         }
 
-
-
-        public static void Encounters(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
+        private static void Encounters(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
-            CollisionPosition(map, drawMap, player1, cyclop1, goblin1, orc1, pie, apple);
+            string menuColor = "\u001b[38;5;196m";
+            Collision(map, drawMap, player1, cyclop1, goblin1, orc1, pie, apple);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
 
-            while (itemCollision)
+            while (ItemCollision)
             {
-                Item.Pie(map, player1, pie);
-                Item.Apple(map, player1, apple);
+                Item.ItemPie(drawMap, map, player1, cyclop1, goblin1, orc1, pie, apple);
+                Item.ItemApple(drawMap, map, player1, cyclop1, goblin1, orc1, pie, apple);
             }
 
-            while (creatureCollision)
+            while (CreatureCollision)
             {
                 Console.Clear();
-                Console.WriteLine("You've encountered an Enemy! What will you do?");
-                Console.WriteLine("\nA. Attack!!\nF. Flee encounter!\n");
+                Console.WriteLine($"{menuColor}You've encountered an Enemy! What will you do?");
+                Console.WriteLine($"\n{Game.MenuOptionColor}A{menuColor}. Attack!!\n{Game.MenuOptionColor}F{menuColor}. Flee encounter!\n");
 
                 ConsoleKeyInfo keyInfo = Console.ReadKey();
 
                 if (keyInfo.Key == ConsoleKey.A)
                 {
-                    orc1.OrcEncounter(drawMap, map, player1, orc1);
-                    cyclop1.CyclopEncounter(drawMap, map, player1, cyclop1);
-                    goblin1.GoblinEncounter(drawMap, map, player1, goblin1);
+                    orc1.OrcEncount(drawMap, map, player1, orc1, pie, apple);
+                    cyclop1.CyclopEncount(drawMap, map, player1, cyclop1, pie, apple);
+                    goblin1.GoblinEncount(drawMap, map, player1, goblin1, pie, apple);
                 }
                 else if (keyInfo.Key == ConsoleKey.F)
                 {
-                    creatureCollision = false;
+                    CreatureCollision = false;
                     player1.PositionX--;
-                    player1.PlacePlayer(drawMap);
+                    player1.PlayerPlacement(drawMap);
                 }
                 else
                 {
                     Console.WriteLine("\nA. Attack!!\nF. Flee encounter!\n");
-                    keyInfo = Console.ReadKey();
                     Console.Clear();
                 }
             }
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
         }
-
-        public static void MovePlayer(DrawMap drawMap, string[,] map, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple, int mapSizeY, int mapSizeX)
+        public static void Encounter(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
+            Encounters(map, drawMap, player1, cyclop1, goblin1, orc1, pie, apple);
+        }
+
+        public static void HideItem(string[,] map, Item pie, Item apple)
+        {
+            string itemColor = "\u001b[38;5;192m";
+            if (map[pie.PositionY, pie.PositionX] == map[8, 8])
+            {
+                map[8, 8] = $"{itemColor}?";
+            }
+            else
+            {
+                map[8, 8] = ".";
+            }
+            if (map[apple.PositionY, apple.PositionX] == map[10, 10])
+            {
+                map[10, 10] = $"{itemColor}?";
+            }
+            else
+            {
+                map[10, 10] = ".";
+            }
+        }
+
+        private static void MovePlayer(DrawMap drawMap, string[,] map, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple, int mapSizeY, int mapSizeX)
+        {
+            string menuColor = "\u001b[38;5;130m";
             bool runGame = true;
             while (runGame)
             {
                 Console.Clear();
-                Console.WriteLine("Use Arrows or WASD to Move around or press Q to Quit ------------------- Press [number] to comsume an item from Inventory");
+                Console.WriteLine($"{menuColor}Use {Game.MenuOptionColor}Arrows{menuColor} or {Game.MenuOptionColor}WASD{menuColor} to Move around, {Game.MenuOptionColor}Q{menuColor} to Quit ------ Use {Game.MenuOptionColor}[number]{menuColor} to comsume an item from Inventory\u001b[38;2;0;0;0m\u001b[48;5;237m");
+                drawMap.DrawUp();
+                Inventory.ShowInventory(player1);
+                drawMap.FillUp();
+                drawMap.MapColor();
+                player1.PlayerPlacement(drawMap);
+                drawMap.PlaceObject(cyclop1, goblin1, orc1, pie, apple);
+                Encounter(map, drawMap, player1, cyclop1, goblin1, orc1, pie, apple);
+                HideItem(map, pie, apple);
 
-                drawMap.Draw();
-                drawMap.Fill();
-                Inventory.DrawInventory();
-                player1.PlacePlayer(drawMap);
-
-                drawMap.PlaceObjects(cyclop1, goblin1, orc1, pie, apple);
-                Mechanics.Encounters(map, drawMap, player1, cyclop1, goblin1, orc1, pie, apple);
-
-                keyInfo = Console.ReadKey();
-
+                ConsoleKeyInfo keyInfo = Console.ReadKey();
 
                 switch (keyInfo.Key)
                 {
                     case ConsoleKey.UpArrow:
                     case ConsoleKey.W:
-                        player1.MovePlayer(drawMap, -1, 0, mapSizeY, mapSizeX);
+                        player1.MovingPlayer(drawMap, -1, 0, mapSizeY, mapSizeX);
                         break;
 
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.S:
-                        player1.MovePlayer(drawMap, 1, 0, mapSizeY, mapSizeX);
+                        player1.MovingPlayer(drawMap, 1, 0, mapSizeY, mapSizeX);
                         break;
 
                     case ConsoleKey.LeftArrow:
                     case ConsoleKey.A:
-                        player1.MovePlayer(drawMap, 0, -1, mapSizeY, mapSizeX);
+                        player1.MovingPlayer(drawMap, 0, -1, mapSizeY, mapSizeX);
                         break;
 
                     case ConsoleKey.RightArrow:
                     case ConsoleKey.D:
-                        player1.MovePlayer(drawMap, 0, 1, mapSizeY, mapSizeX);
+                        player1.MovingPlayer(drawMap, 0, 1, mapSizeY, mapSizeX);
                         break;
 
                     case ConsoleKey.D1:
-
-                        if (Item.inventory[1] != null)
+                        if (Item.PlayerInventory.Count > 1)
                         {
-                            if (Item.inventory[1] == ($"{pie.Name} - {pie.Hp} +HP"))
+                            if (Item.PlayerInventory[1] != null)
                             {
-                                player1.Hp += pie.Hp;
+                                if (Item.PlayerInventory[1] == ($"{pie.Name} - {pie.Hp} +HP"))
+                                {
+                                    player1.Hp += pie.Hp;
+                                }
+                                else if ((Item.PlayerInventory[1] == $"{apple.Name} - {apple.Hp} +HP"))
+                                {
+                                    player1.Hp += apple.Hp;
+                                }
+                                Item.PlayerInventory.RemoveAt(1);
                             }
-                            else if ((Item.inventory[1] == $"{apple.Name} - {apple.Hp} +HP"))
-                            {
-                                player1.Hp += apple.Hp;
-                            }
-                            Item.inventory.RemoveAt(1);
                         }
-                        //else 
-                        //{ 
-                        //    Console.WriteLine("No such item exist in inventory"); 
-                        //}
                         break;
-
 
                     case ConsoleKey.D2:
 
-                        if (Item.inventory[2] != null)
+                        if (Item.PlayerInventory.Count > 2)
                         {
-                            if (Item.inventory[2] == ($"{pie.Name} - {pie.Hp} +HP"))
+                            if (Item.PlayerInventory[2] != null)
                             {
-                                player1.Hp += pie.Hp;
+                                if (Item.PlayerInventory[2] == ($"{pie.Name} - {pie.Hp} +HP"))
+                                {
+                                    player1.Hp += pie.Hp;
+                                }
+                                else if ((Item.PlayerInventory[2] == $"{apple.Name} - {apple.Hp} +HP"))
+                                {
+                                    player1.Hp += apple.Hp;
+                                }
+                                Item.PlayerInventory.RemoveAt(2);
                             }
-                            else if ((Item.inventory[2] == $"{apple.Name} - {apple.Hp} +HP"))
-                            {
-                                player1.Hp += apple.Hp;
-                            }
-                            Item.inventory.RemoveAt(2);
                         }
-                        //else
-                        //{
-                        //    Console.WriteLine("No such item exist in inventory");
-                        //}
                         break;
 
                     case ConsoleKey.D3:
@@ -193,6 +234,10 @@ namespace SalesAdventure
                         break;
                 }
             }
+        }
+        public static void MoveingPlayer(DrawMap drawMap, string[,] map, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple, int mapSizeY, int mapSizeX)
+        {
+            MovePlayer(drawMap, map, player1, cyclop1, goblin1, orc1, pie, apple, mapSizeY, mapSizeX);
         }
     }
 }

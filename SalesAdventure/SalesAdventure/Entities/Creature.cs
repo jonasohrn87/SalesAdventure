@@ -25,98 +25,65 @@ namespace SalesAdventure.Entities
         public Creature()
         {
         }
-
-        /*
-        private string icon;
-        private int lvl;
-        private string creatureName;
-        private double hp;
-        private int luck;
-        private int strength;
-        private int charisma;
-        private int wackiness;
-        private int positionY;
-        private int positionX;
-        private int playerLucky;
-        private int monsterLucky;
-        */
-
-
-        public string CreatureIcon
-        {
-            get { return icon; }   // get method
-            set { icon = value; }  // set method
+        public string CreatureIcon {
+            get { return icon; }
+            set { icon = value; }
         }
         public int Lvl
         {
             get { return lvl; }
             set { lvl = value; }
         }
-
         public string Name
         {
             get { return creatureName; }
             set { creatureName = value; }
         }
-
         public double Hp
         {
             get { return hp; }
             set { hp = value; }
         }
-
         public int Luck
         {
             get { return luck; }
             set { luck = value; }
         }
-
         public int Strength
         {
             get { return strength; }
             set { strength = value; }
         }
-
         public int Charisma
         {
             get { return charisma; }
             set { charisma = value; }
         }
-
         public int Wackiness
         {
             get { return wackiness; }
             set { wackiness = value; }
         }
-
         public int PositionY
         {
             get { return positionY; }
             set { positionY = value; }
         }
-
         public int PositionX
         {
             get { return positionX; }
             set { positionX = value; }
         }
-
         public int PlayerLucky
         {
             get { return playerLucky; }
             set { playerLucky = value; }
         }
-
         public int MonsterLucky
         {
             get { return monsterLucky; }
             set { monsterLucky = value; }
         }
-
-
-
-
-        public abstract void Blocking(Creature target);
 
         public abstract void Attack(Creature target);
 
@@ -124,8 +91,7 @@ namespace SalesAdventure.Entities
 
         public abstract void Attacks(Creature target);
 
-
-        public int LuckyStart(Player player1, Creature target)
+        private int LuckyStart(Player player1, Creature target)
         {
             Random random = new Random();
             PlayerLucky = random.Next(1, 8) + player1.Luck;
@@ -134,7 +100,12 @@ namespace SalesAdventure.Entities
             return PlayerLucky + MonsterLucky;
         }
 
-        public void CreatureDeafeated(DrawMap drawMap, Player player1, Creature target)
+        public int ShowLucky(Player player1, Creature target)
+        {
+            return LuckyStart(player1, target);
+        }
+
+        private void CreatureDeafeated(DrawMap drawMap, Player player1, Creature target)
         {
             if (target.hp <= 0)
             {
@@ -142,13 +113,21 @@ namespace SalesAdventure.Entities
                 this.PositionY = 0;
                 this.PositionX = 0;
                 this.CreatureIcon = "#";
-                Mechanics.monsterEncounter = false;
-                Mechanics.creatureCollision = false;
-                player1.PlacePlayer(drawMap);
+                Mechanics.MonsterEncounter = false;
+                Mechanics.CreatureCollision = false;
+                player1.PlayerPlacement(drawMap);
                 Console.Clear();
                 Console.WriteLine("You WON! Press any key to Continue.");
             }
         }
+        public void CreatureDeath(DrawMap drawMap, Player player1, Creature target)
+        {
+            CreatureDeafeated(drawMap, player1, target);
+        }
+    }
+}
+
+
         //public virtual void EncounterFight(DrawMap drawMap, string[,] map, Player player1, Creature target)
         //{
         //    if (map[player1.positionY, player1.positionX] == map[this.positionY, this.positionX])
@@ -181,5 +160,3 @@ namespace SalesAdventure.Entities
         //        }
         //    }
         //}
-    }
-}
