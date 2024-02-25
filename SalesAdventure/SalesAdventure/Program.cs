@@ -1,4 +1,4 @@
 ﻿using SalesAdventure;
 
 var game = new Game();
-game.Run();
+game.PlayGame();
