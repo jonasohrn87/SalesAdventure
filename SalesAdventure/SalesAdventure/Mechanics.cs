@@ -34,13 +34,14 @@ namespace SalesAdventure
         }
         private static void PlayerDeath()
         {
-
+            // Kommande feature där spelaren faktiskt kan dö...
         }
         public static void Death()
         {
             PlayerDeath();
         }
 
+        //Metod som kollar om kollision mellan spelare och ett objekt sker.
         private static bool CollisionPosition(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
             if (map[player1.PositionY, player1.PositionX] == map[cyclop1.PositionY, cyclop1.PositionX] || map[player1.PositionY, player1.PositionX] == map[goblin1.PositionY, goblin1.PositionX] || map[player1.PositionY, player1.PositionX] == map[orc1.PositionY, orc1.PositionX])
@@ -54,11 +55,13 @@ namespace SalesAdventure
             else
                 return (CreatureCollision = false) & (ItemCollision = false);
         }
+
         public static bool Collision(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
             return CollisionPosition(map, drawMap, player1, cyclop1, goblin1, orc1, pie, apple);
         }
 
+        // När kollision mellan spelare och monster/item inträffar öppnas menyval.
         private static void Encounters(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
             string menuColor = "\u001b[38;5;196m";
@@ -101,11 +104,14 @@ namespace SalesAdventure
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
         }
+
         public static void Encounter(string[,] map, DrawMap drawMap, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
             Encounters(map, drawMap, player1, cyclop1, goblin1, orc1, pie, apple);
         }
 
+
+        // Ändrar items-iconer på kartan till frågetecken
         public static void HideItem(string[,] map, Item pie, Item apple)
         {
             string itemColor = "\u001b[38;5;192m";
@@ -205,6 +211,7 @@ namespace SalesAdventure
                         }
                         break;
 
+                        // Kommande menyval...
                     case ConsoleKey.D3:
                         break;
 

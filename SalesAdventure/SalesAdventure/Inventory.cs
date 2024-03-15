@@ -9,6 +9,8 @@ namespace SalesAdventure
         public Inventory()
         {
         }
+
+        // Målar upp inventory och dess innehåll under kartan.
         private static void DrawInventory(Player player1)
         {
             string inventoryColor = "\u001b[0m\u001b[38;5;130m\u001b[1m";
@@ -39,9 +41,9 @@ namespace SalesAdventure
         {
             DrawInventory(player1);
         }
-        private void InventoryPlaceOne()
-        {
+        //private void InventoryPlaceOne()
+        //{
 
-        }
+        //}
     }
 }

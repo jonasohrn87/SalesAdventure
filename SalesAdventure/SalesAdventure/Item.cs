@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using SalesAdventure.Entities;
 using SalesAdventure.Map;
-
 using SalesAdventure;
 using static System.Net.Mime.MediaTypeNames;
 using System.Drawing;
@@ -20,8 +19,8 @@ namespace SalesAdventure
         private double hp;
         private int luck;
         private int strength;
-        private int charisma;
-        private int wackiness;
+        private int charisma; //ej implementerad ännu
+        private int wackiness; // påverkar bl a critical hit
         private int positionY;
         private int positionX;
         private static List<string> inventory = new List<string>();
@@ -33,8 +32,8 @@ namespace SalesAdventure
             this.hp = hp;
             this.luck = luck;
             this.strength = strength;
-            this.charisma = charisma;
-            this.wackiness = wackiness;
+            this.charisma = charisma; //ej implementerad ännu
+            this.wackiness = wackiness; // påverkar bl a critical hit
             this.positionY = positionY;
             this.positionX = positionX;
         }
@@ -88,12 +87,15 @@ namespace SalesAdventure
             get { return positionX; }
             set { positionX = value; }
         }
+
+        // Informationestext läggs till över och under kartan för att visa sätt att röra sig, visa och konsumera inventory innehåll.
         public static void ItemMenuFill(DrawMap drawMap, string[,] map, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
             string menuColor = "\u001b[38;5;130m";
             Console.Clear();
             Mechanics.HideItem(map, pie, apple);
-            Console.WriteLine($"{menuColor}Use {Game.MenuOptionColor}Arrows{menuColor} or {Game.MenuOptionColor}WASD{menuColor} to Move around, {Game.MenuOptionColor}Q{menuColor} to Quit ------ Use {Game.MenuOptionColor}[number]{menuColor} to comsume an item from Inventory\u001b[38;2;0;0;0m\u001b[48;5;237m");
+            Console.WriteLine($"{menuColor}Use {Game.MenuOptionColor}Arrows{menuColor} or {Game.MenuOptionColor}WASD{menuColor} to Move around, {Game.MenuOptionColor}Q{menuColor} to " +
+                $"Quit ------ Use {Game.MenuOptionColor}[number]{menuColor} to comsume an item from Inventory\u001b[38;2;0;0;0m\u001b[48;5;237m");
             drawMap.DrawUp();
             Inventory.ShowInventory(player1);
             drawMap.FillUp();
@@ -102,6 +104,8 @@ namespace SalesAdventure
             drawMap.PlaceObject(cyclop1, goblin1, orc1, pie, apple);
             Console.WriteLine($"{Game.TextColor}Press {Game.MenuOptionColor}1{Game.TextColor} to Consume or {Game.MenuOptionColor}2{Game.TextColor} to place {apple.Name}{Game.TextColor} in inventory?");
         }
+
+        //Metod som hanterar användadet av föremålet pie och även flyttar iconen utanför spelplan när den inte ska finnas utritad längre.
         private static void Pie(DrawMap drawMap, string[,] map, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
             if (map[player1.PositionY, player1.PositionX] == map[pie.PositionY, pie.PositionX])
@@ -145,11 +149,13 @@ namespace SalesAdventure
                 }
             }
         }
+
         public static void ItemPie(DrawMap drawMap, string[,] map, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
             Pie(drawMap, map, player1, cyclop1, goblin1, orc1, pie, apple);
         }
 
+        //Metod som hanterar användadet av föremålet apple och även flyttar iconen utanför spelplan när den inte ska finnas utritad längre.
         private static void Apple(DrawMap drawMap, string[,] map, Player player1, Cyclop cyclop1, Goblin goblin1, Orc orc1, Item pie, Item apple)
         {
             if (map[player1.PositionY, player1.PositionX] == map[apple.PositionY, apple.PositionX])
