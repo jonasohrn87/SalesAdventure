@@ -43,3 +43,18 @@ C:\Dokument\Skola\SalesAdventure_Edit\SalesAdventure\SalesAdventure\obj\Debug\ne
 C:\Dokument\Skola\SalesAdventure_Edit\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.pdb
 C:\Dokument\Skola\SalesAdventure_Edit\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.genruntimeconfig.cache
 C:\Dokument\Skola\SalesAdventure_Edit\SalesAdventure\SalesAdventure\obj\Debug\net8.0\ref\SalesAdventure.dll
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\bin\Debug\net8.0\SalesAdventure.exe
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\bin\Debug\net8.0\SalesAdventure.deps.json
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\bin\Debug\net8.0\SalesAdventure.runtimeconfig.json
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\bin\Debug\net8.0\SalesAdventure.dll
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\bin\Debug\net8.0\SalesAdventure.pdb
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.AssemblyInfoInputs.cache
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.AssemblyInfo.cs
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.csproj.CoreCompileInputs.cache
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.sourcelink.json
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.dll
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\refint\SalesAdventure.dll
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.pdb
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\SalesAdventure.genruntimeconfig.cache
+C:\Dokument\Visual Studio\SKOLA\C#\SalesAdventure\SalesAdventure\SalesAdventure\obj\Debug\net8.0\ref\SalesAdventure.dll

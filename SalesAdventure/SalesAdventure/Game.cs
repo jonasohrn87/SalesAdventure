@@ -71,7 +71,6 @@ namespace SalesAdventure
             Orc orc1 = new Orc($"{orcColor}O", 2, $"{orcColor}Nikos", 100, 5, 8, 6, 1, 14, 12);
             Goblin goblin1 = new Goblin($"{goblinColor}G", 4, $"{goblinColor}Johnny", 85, 5, 8, 6, 1, 16, 5);
             DrawMap drawMap = new DrawMap(Map, MapSizeX, MapSizeY);
-            //Creature[] creature = { cyclop1, orc1, goblin1 };
 
             Item pie = new Item("Q", "Pie", 100, 0, 0, 0, 0, 8, 8);
             Item apple = new Item("A", "Apple", 50, 0, 0, 0, 0, 10, 10);
@@ -82,18 +81,18 @@ namespace SalesAdventure
             Console.WriteLine("\u001b[6mWelcome Player!!\nPress Enter to play the SalesAdventures\u001b[0m\n");
             Console.ReadLine();
 
-            drawMap.DrawUp();
-            Inventory.ShowInventory(player1);
-            drawMap.FillUp();
+            drawMap.DrawUp(); //spelkartan ritas upp
+            Inventory.ShowInventory(player1); 
+            drawMap.FillUp(); // fyller spelkartan med väggar och spelplan
             drawMap.MapColor();
             player1.PlayerPlacement(drawMap);
             drawMap.PlaceObject(cyclop1, goblin1, orc1, pie, apple);
-            Mechanics.HideItem(map, pie, apple);
+            Mechanics.HideItem(map, pie, apple); //Döljer items-iconer på kartan till ?
             Mechanics.MoveingPlayer(drawMap, Map, player1, cyclop1, goblin1, orc1, pie, apple, MapSizeY, MapSizeX);
         }
         public void PlayGame()
         {
-            Run();
+            Run(); 
         }
     }
 }

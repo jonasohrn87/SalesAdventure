@@ -21,12 +21,13 @@ namespace SalesAdventure.Entities
             this.Hp = Hp;
             this.Luck = Luck;
             this.Strength = Strength;
-            this.Charisma = Charisma;
-            this.Wackiness = Wackiness;
+            this.Charisma = Charisma; //ej implementerad ännu
+            this.Wackiness = Wackiness; // påverkar bl a critical hit
             this.PositionY = PositionY;
             this.PositionX = PositionX;
         }
 
+        //Metod för att visa och konsumera innehållet i inventory.
         private void InventoryConsumables(Player player1, Item pie, Item apple)
         {
             bool useItems = true;
@@ -34,7 +35,6 @@ namespace SalesAdventure.Entities
             {
                 Console.Clear();
                 Inventory.ShowInventory(player1);
-                //Console.WriteLine($"{this.Name}{Game.TextColor} Health: {Game.HpColor}{this.Hp}");
                 Console.WriteLine($"{Game.TextColor}Press {Game.MenuOptionColor}[Number]{Game.TextColor} to use an item or {Game.MenuOptionColor}I{Game.TextColor} to close inventory");
                 ConsoleKeyInfo keyInfo = Console.ReadKey();
                 switch (keyInfo.Key)
@@ -86,6 +86,7 @@ namespace SalesAdventure.Entities
                 }
             }
         }
+
         public void Consumable(Player player1, Item pie, Item apple)
         {
             InventoryConsumables(player1, pie, apple);
@@ -117,7 +118,6 @@ namespace SalesAdventure.Entities
                 Console.WriteLine($"\n{this.Name}{Game.TextColor} lands a critical hit with a rock on {target.Name}{Game.TextColor}!");
             }
             Math.Round(target.Hp -= playerRock);
-
             Console.WriteLine($"\n{this.Name}{Game.TextColor} throws a rock on {target.Name}{Game.TextColor} for {Game.HpColor}{playerRock}{Game.TextColor} damage. {target.Name}{Game.TextColor} stumbles and have now {Game.HpColor}{target.Hp}{Game.TextColor} HP left.");
         }
 
@@ -125,6 +125,7 @@ namespace SalesAdventure.Entities
         {
         }
 
+        // Playerns menyval för attacker, inventory, val om överge fight
         private void PlayerAttackMenu(DrawMap drawMap, Creature target, Player player1, Item pie, Item apple)
         {
             string menuColor = "\u001b[38;5;180m";

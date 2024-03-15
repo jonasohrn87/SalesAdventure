@@ -15,12 +15,12 @@ namespace SalesAdventure.Entities
         private double hp;
         private int luck;
         private int strength;
-        private int charisma;
-        private int wackiness;
+        private int charisma; //ej implementerad ännu
+        private int wackiness; // påverkar bl a critical hit
         private int positionY;
         private int positionX;
-        private int playerLucky;
-        private int monsterLucky;
+        private int playerLucky; // startchans av varje fight för player
+        private int monsterLucky; // startchans av varje fight för monster
 
         public Creature()
         {
@@ -89,8 +89,10 @@ namespace SalesAdventure.Entities
 
         public abstract void ThrowRock(Creature target);
 
+        // Samling attacker
         public abstract void Attacks(Creature target);
 
+        //Metod för att räkna ut med random vem som får första attacken i varje attacksekvens.
         private int LuckyStart(Player player1, Creature target)
         {
             Random random = new Random();
@@ -100,13 +102,15 @@ namespace SalesAdventure.Entities
             return PlayerLucky + MonsterLucky;
         }
 
+        // Visar tärningskast för start i fight för player och monster.
         public int ShowLucky(Player player1, Creature target)
         {
             return LuckyStart(player1, target);
         }
-
         private void CreatureDeafeated(DrawMap drawMap, Player player1, Creature target)
         {
+
+            // Om monster dör, ändra icon och flytta ut monster ur kartan och dölj sedan monster i vägg.
             if (target.hp <= 0)
             {
                 this.CreatureIcon = ".";
@@ -126,37 +130,3 @@ namespace SalesAdventure.Entities
         }
     }
 }
-
-
-        //public virtual void EncounterFight(DrawMap drawMap, string[,] map, Player player1, Creature target)
-        //{
-        //    if (map[player1.positionY, player1.positionX] == map[this.positionY, this.positionX])
-        //    {
-        //        Mechanics.monsterEncounter = true;
-        //        while (Mechanics.monsterEncounter)
-        //        {
-        //            if (player1.luck > this.luck)
-        //            {
-        //                LuckyStart(player1, this);
-        //                Console.WriteLine($"{playerLucky} and {monsterLucky}");
-        //                Console.WriteLine($"{player1.name} will do the first attack.");
-        //                Console.ReadLine();
-
-        //                player1.PlayerAttackMenu(drawMap, this, player1);
-        //                CreatureDeafeated(drawMap, player1, this);
-        //            }
-        //            else if (player1.luck < this.luck)
-        //            {
-        //                LuckyStart(player1, target);
-        //                Console.WriteLine($"{playerLucky} and {monsterLucky}");
-        //                Console.ReadLine();
-        //                Console.WriteLine($"{this.name} will do the first attack.");
-        //                Console.ReadLine();
-        //                Attacks(player1);
-        //                //Attack(player1);
-        //                player1.PlayerAttackMenu(drawMap, this, player1);
-        //                CreatureDeafeated(drawMap, player1, this);
-        //            }
-        //        }
-        //    }
-        //}

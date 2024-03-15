@@ -18,8 +18,8 @@ namespace SalesAdventure.Entities
             this.Hp = Hp;
             this.Luck = Luck;
             this.Strength = Strength;
-            this.Charisma = Charisma;
-            this.Wackiness = Wackiness;
+            this.Charisma = Charisma; //ej implementerad ännu
+            this.Wackiness = Wackiness; // påverkar bl a critical hit
             this.PositionY = PositionY;
             this.PositionX = PositionX;
         }

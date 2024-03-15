@@ -66,7 +66,7 @@ namespace SalesAdventure.Map
                     }
                     else
                     {
-                        Map[i, j] = ".";
+                        Map[i, j] = "."; // . spelplanen innanför väggarna
                     }
                 }
             }
@@ -86,6 +86,7 @@ namespace SalesAdventure.Map
 
             string w = $"{wallColor}#{wallColorReset}";
 
+            // Färgsätter väggarna runt kartan
             Map[17, startBottom] = $"{wallColor}#";
             for (int i = startBottom + 1; i < endBottom; i++)
             {
@@ -124,41 +125,5 @@ namespace SalesAdventure.Map
         {
             PlaceObjects(cyclop1, goblin1, orc1, pie, apple);
         }
-
-        //public void PlaceItems(Item pie, Item apple)
-        //{
-        //    map[pie.positionY, pie.positionX] = pie.itemIcon;
-        //    map[apple.positionY, apple.positionX] = apple.itemIcon;
-        //}
-
-
-        //public void SpawnEnemies(Cyclop cyclop1, Goblin goblin1, Orc orc1)
-        //{
-        //    Random randomMonsterPosition = new Random();
-
-        //    //cyclop1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1); //Y
-        //    //cyclop1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1); //X
-
-        //    //orc1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
-        //    //orc1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
-
-        //    //goblin1.positionY = randomMonsterPosition.Next(1, mapSizeY - 1);
-        //    //goblin1.positionX = randomMonsterPosition.Next(1, mapSizeX - 1);
-
-
-        //    cyclop1.positionY = randomMonsterPosition.Next(1, 24 - 1); //Y
-        //    cyclop1.positionX = randomMonsterPosition.Next(1, 32 - 1); //X
-
-        //    orc1.positionY = randomMonsterPosition.Next(1, 24 - 1);
-        //    orc1.positionX = randomMonsterPosition.Next(1, 32 - 1);
-
-        //    goblin1.positionY = randomMonsterPosition.Next(1, 24 - 1);
-        //    goblin1.positionX = randomMonsterPosition.Next(1, 32 - 1);
-
-
-        //    map[cyclop1.positionY, cyclop1.positionX] = cyclop1.creatureIcon;
-        //    map[orc1.positionY, orc1.positionX] = orc1.creatureIcon;
-        //    map[goblin1.positionY, goblin1.positionX] = goblin1.creatureIcon;
-        //}
     }
 }
